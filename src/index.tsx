@@ -1,12 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StatusBar } from 'react-native';
-import Login from './pages/Login';
+import Routes from './routes';
 
-const App: React.FC = () => (
-  <>
-    <StatusBar backgroundColor="#00B5E2" />
-    <Login />
-  </>
-)
+import { AuthProvider } from './contexts/auth';
+import { NavigationContainer } from '@react-navigation/native';
+
+const App: React.FC = () => {
+  return (
+    <>
+      <StatusBar backgroundColor="#00B5E2" />
+      <NavigationContainer>
+        <AuthProvider>
+          <Routes />
+        </AuthProvider>
+      </NavigationContainer>
+    </>
+  )
+}
 
 export default App;

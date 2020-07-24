@@ -31,7 +31,7 @@ export const Esqueci = styled.Text`
 `;
 
 export const Input = styled.TextInput`
-  background-color: #F4F4F4;
+  background-color: #F0F0F0;
   width: 80%;
   margin-bottom: 10px;
   border-radius: 10px;
