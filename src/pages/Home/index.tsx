@@ -19,7 +19,9 @@ const colors = [
   '#fbc602',
   '#38b5e2',
   '#3fbf6f',
-  '#f89300'
+  '#f89300',
+  '#EF4B81',
+  '#BB16A3'
 ]
 
 const Home: React.FC = () => {
@@ -55,7 +57,7 @@ const Home: React.FC = () => {
             {item.matters.map((matter, index) => (
               <ListItem key={matter.id}
                 style={{
-                  backgroundColor: `${colors[index]}`
+                  backgroundColor: `${colors[Math.floor(Math.random() * 6)]}`
                 }}
               >
                 <MatterText>
