@@ -1,11 +1,71 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
-import { Container, Text } from './styles';
+import { Container, Item, AreaTitle, List, ListItem, MatterText } from './styles';
+import api from '../../services/api';
+
+interface Matter {
+  id: number;
+  area_id: number;
+  title: string;
+}
+
+interface Area {
+  id: number;
+  title: string;
+  matters: Matter[];
+}
+
+const colors = [
+  '#fbc602',
+  '#38b5e2',
+  '#3fbf6f',
+  '#f89300'
+]
 
 const Home: React.FC = () => {
+  const [feed, setFeed] = useState<Area[]>([] as Area[]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+
+    async function loadData() {
+      try {
+        const { data } = await api.get<Area[]>('areas');
+        setFeed(data)
+      } catch (error) {
+
+      }
+    }
+
+    loadData();
+    setLoading(false);
+  }, [])
+
+  if (loading) return null;
+
   return (
     <Container>
-      <Text>Home</Text>
+      {feed?.map(item => (
+        <Item key={item.id}>
+          <AreaTitle>{item?.title}</AreaTitle>
+          <List
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+          >
+            {item.matters.map((matter, index) => (
+              <ListItem key={matter.id}
+                style={{
+                  backgroundColor: `${colors[index]}`
+                }}
+              >
+                <MatterText>
+                  {matter.title}
+                </MatterText>
+              </ListItem>
+            ))}
+          </List>
+        </Item>
+      ))}
     </Container>
   )
 }

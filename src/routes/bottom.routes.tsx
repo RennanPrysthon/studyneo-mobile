@@ -17,13 +17,18 @@ const BottomTabs: React.FC = () => (
     activeColor="#ffffff"
     inactiveColor="#fff8"
     barStyle={{ backgroundColor: '#00B5E2' }}
+    labeled={false}
   >
     <Bottom.Screen name="HomeTab" component={Home}
       options={{
         tabBarIcon: ({ color }) => <Icon name="home" size={25} color={color} />
       }}
     />
-    <Bottom.Screen name="SettingTab" component={Login} />
+    <Bottom.Screen name="SettingTab" component={Login}
+      options={{
+        tabBarIcon: ({ color }) => <Icon name="description" size={25} color={color} />
+      }}
+    />
   </Bottom.Navigator>
 )
 
