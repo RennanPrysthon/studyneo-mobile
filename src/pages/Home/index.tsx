@@ -31,12 +31,8 @@ const Home: React.FC = () => {
   useEffect(() => {
 
     async function loadData() {
-      try {
-        const { data } = await api.get<Area[]>('areas');
-        setFeed(data)
-      } catch (error) {
-
-      }
+      const { data } = await api.get<Area[]>('areas');
+      setFeed(data)
     }
 
     loadData();

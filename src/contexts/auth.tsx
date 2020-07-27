@@ -45,13 +45,13 @@ export const AuthProvider: React.FC = ({ children }) => {
         token: data.token,
         refresh: data.refreshToken
       });
-
+      console.log(data)
       await AsyncStorage.setItem('@RNAuth:user', JSON.stringify({
         token: data.token,
         refresh: data.refreshToken
       }))
     } catch (error) {
-
+      console.log(error)
     }
   }
 
