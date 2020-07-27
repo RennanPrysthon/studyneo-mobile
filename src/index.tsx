@@ -4,6 +4,7 @@ import Routes from './routes';
 
 import { AuthProvider } from './contexts/auth';
 import { NavigationContainer } from '@react-navigation/native';
+import FlashMessage from "react-native-flash-message";
 
 const App: React.FC = () => {
   return (
@@ -14,6 +15,7 @@ const App: React.FC = () => {
           <Routes />
         </AuthProvider>
       </NavigationContainer>
+      <FlashMessage position="top" />
     </>
   )
 }

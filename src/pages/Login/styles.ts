@@ -1,8 +1,9 @@
 import styled from 'styled-components/native';
 
 export const Container = styled.View`
-  justify-content: center;
   align-items: center;
+  background-color: #fff;
+  flex: 1;
 `;
 
 export const Form = styled.View`
@@ -20,11 +21,11 @@ export const Esqueci = styled.Text`
 `;
 
 export const Input = styled.TextInput`
-  background-color: #F0F0F0;
+  background-color: #F4F4F4;
   width: 80%;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   border-radius: 10px;
-  padding-horizontal: 15px;
+  padding: 10px;
 `;
 
 export const Submit = styled.TouchableOpacity`
