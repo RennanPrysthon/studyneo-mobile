@@ -1,6 +1,11 @@
 import styled from 'styled-components/native';
 
-export const Container = styled.View`
+export const Container = styled.KeyboardAvoidingView`
+  background-color: #fff;
+  flex: 1;
+`;
+
+export const ContainerList = styled.View`
   align-items: center;
   background-color: #fff;
   flex: 1;
