@@ -1,15 +1,16 @@
 import React from 'react';
 
 import { createStackNavigator } from '@react-navigation/stack'
-import AppBottom from './bottom.routes';
+import Cadastro from '../pages/Cadastro';
 
 const Stack = createStackNavigator();
 
 const SignUp: React.FC = () => (
   <Stack.Navigator
-    initialRouteName="Home"
+    initialRouteName="Cadastro"
+    screenOptions={{ headerShown: false }}
   >
-    <Stack.Screen name="Home" component={AppBottom} />
+    <Stack.Screen name="Cadastro" component={Cadastro} />
   </Stack.Navigator>
 );
 

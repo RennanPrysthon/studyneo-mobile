@@ -2,8 +2,6 @@ import React, { useState, useContext } from 'react';
 
 import {
   Container,
-  TopImage,
-  LogoImage,
   Form,
   Esqueci,
   Input,
@@ -15,29 +13,26 @@ import {
   Link,
 } from './styles';
 
-
 import AuthContext from '../../contexts/auth';
+import { useNavigation, StackActions } from '@react-navigation/native';
+import Top from '../../assets/top1.svg';
+import Logo from '../../assets/logo.svg';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
 
   const { signIn } = useContext(AuthContext);
+  const navigation = useNavigation();
 
-  const handlerCadastrar = () => {
-
-  }
+  const handlerCadastrar = () => navigation.dispatch(StackActions.push("SignOn"))
 
   const handlerLogar = () => signIn(email, senha);
 
   return (
     <Container>
-      <TopImage
-        source={require('../../assets/top.png')}
-      />
-      <LogoImage
-        source={require('../../assets/logo.png')}
-      />
+      <Top width={'100%'} />
+      <Logo />
       <Form>
         <Input placeholder="Email" value={email} onChangeText={setEmail} />
         <Input placeholder="Senha" secureTextEntry={true} value={senha} onChangeText={setSenha} />

@@ -13,17 +13,6 @@ export const Form = styled.View`
   align-items: center;
 `;
 
-export const TopImage = styled.Image`
-  align-self: flex-start;
-  width: 100%;
-  height: 120px;
-`;
-
-export const LogoImage = styled.Image`
-  width: 148px;
-  height: 148px;
-`;
-
 export const Esqueci = styled.Text`
   color: #00B5E2;
   font-weight: bold;
@@ -36,7 +25,6 @@ export const Input = styled.TextInput`
   margin-bottom: 10px;
   border-radius: 10px;
   padding-horizontal: 15px;
-
 `;
 
 export const Submit = styled.TouchableOpacity`
