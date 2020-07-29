@@ -7,6 +7,7 @@ import Home from '../pages/Home';
 import Header from '../components/Header';
 import Login from '../pages/Login';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import Resumes from '../pages/Resumes';
 
 const Bottom = createMaterialBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -24,7 +25,7 @@ const BottomTabs: React.FC = () => (
         tabBarIcon: ({ color }) => <Icon name="home" size={25} color={color} />
       }}
     />
-    <Bottom.Screen name="SettingTab" component={Login}
+    <Bottom.Screen name="ResumesTab" component={Resumes}
       options={{
         tabBarIcon: ({ color }) => <Icon name="description" size={25} color={color} />
       }}
