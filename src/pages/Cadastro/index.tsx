@@ -17,6 +17,7 @@ import Logo from '../../assets/imagotipo-horizontal.svg';
 import { useNavigation } from '@react-navigation/native';
 import api from '../../services/api';
 import { showMessage } from 'react-native-flash-message';
+import { ActivityIndicator } from 'react-native';
 
 interface Cadastro {
   email: string;
@@ -29,7 +30,7 @@ const Cadastro: React.FC = () => {
   const [email, setEmail] = React.useState('');
   const [pass, setPass] = React.useState('');
   const [confirmPass, setConfirmPass] = React.useState('');
-
+  const [loading, setLoading] = React.useState(false);
   const navigation = useNavigation();
 
   const able = React.useMemo(
@@ -39,8 +40,9 @@ const Cadastro: React.FC = () => {
 
   const submitForm = async () => {
     if (!able) return;
-    console.log('teste')
-
+    if (loading) return;
+    console.log(loading)
+    setLoading(true);
     const user: Cadastro = {
       email,
       name,
@@ -55,8 +57,10 @@ const Cadastro: React.FC = () => {
       });
 
       navigation.goBack();
+      setLoading(false);
     } catch (error) {
       console.log(error);
+      setLoading(false);
     }
   }
 
@@ -86,9 +90,11 @@ const Cadastro: React.FC = () => {
       </Form>
       <Footer>
         <Submit onPress={submitForm} desabilitado={able}>
-          <SubmitText>
-            Cadastrar
-          </SubmitText>
+          {loading && <ActivityIndicator size={27} color="#ffffff" />}
+          {!loading &&
+            <SubmitText>
+              Cadastrar
+          </SubmitText>}
         </Submit>
         <BackButon onPress={() => navigation.goBack()}>
           <BackText>
