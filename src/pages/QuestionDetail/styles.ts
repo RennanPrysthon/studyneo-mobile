@@ -4,6 +4,10 @@ import { TouchableOpacity } from 'react-native';
 
 interface Props {
   isSelected?: boolean;
+  bgColor: {
+    text: string;
+    bg: string;
+  };
 }
 
 export const Container = styled.ScrollView`
@@ -43,9 +47,10 @@ export const AlternativeItem = styled(TouchableOpacity) <Props>`
   border: 2px;
   margin-bottom: 8px;
   border-radius: 10px;
-  border-color: ${props => props.isSelected === true ? '#00B5E2' : '#f0f0f0'};
+  border-color: ${props => props.isSelected === true ? '#222222' : '#f0f0f0'};
+  background-color: ${props => props.bgColor.bg};
 `;
 
-export const Value = styled.Text`
-
+export const Value = styled(Text) <Props>`
+  color: ${props => props.bgColor.text};
 `;
