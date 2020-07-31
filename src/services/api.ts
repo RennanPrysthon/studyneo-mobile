@@ -3,8 +3,13 @@ import Storage from '../storage/auth';
 import { showMessage } from 'react-native-flash-message';
 
 const api = axios.create({
-  baseURL: 'https://api.studyneo.com.br/',
+  baseURL: 'http://67.205.162.29/',
 });
+
+interface Erro {
+  field: string;
+  message: string;
+}
 
 api.interceptors.request.use(async (request) => {
   const storage = await Storage.getUser();
@@ -21,16 +26,24 @@ api.interceptors.request.use(async (request) => {
 api.interceptors.response.use((response) => {
   return response;
 }, (error) => {
-  if (error.response.status === 401) {
+  if (error.response && error.response.status === 401) {
     const erros = error.response.data;
-    erros.forEach((erro: any) => {
+    erros.forEach(({ field, message }: Erro) => {
       showMessage({
-        message: erro.field,
-        description: erro.message,
+        message: field.charAt(0).toUpperCase() + field.slice(1),
+        description: message,
         type: "danger",
       });
     });
+    return error;
   }
+
+  showMessage({
+    message: 'Erro',
+    description: `${error}`,
+    type: "danger",
+  })
+
   return error;
 })
 

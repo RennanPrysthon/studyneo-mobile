@@ -3,17 +3,20 @@ import React from 'react';
 import { Container, Header, UserName, Line, Menu, Route, RouteName, Logout, LogoutText } from './styles';
 import Isotipo from '../../assets/isotipo.svg';
 import AuthContext from '../../contexts/auth';
+import Loading from '../Loading';
 
 const SideBar: React.FC = () => {
-  const auth = React.useContext(AuthContext);
+  const { user, signOut, loading } = React.useContext(AuthContext);
+
+  if (loading) return <Loading />;
 
   return (
     <Container>
       <Header>
         <Isotipo />
-        {/* <UserName>
-        Name
-      </UserName> */}
+        <UserName>
+          {user?.name}
+        </UserName>
         <Line />
       </Header>
       <Menu>
@@ -24,7 +27,7 @@ const SideBar: React.FC = () => {
         </Route>
       </Menu>
       <Logout
-        onPress={() => auth.signOut()}
+        onPress={() => signOut()}
       >
         <LogoutText>
           Sair

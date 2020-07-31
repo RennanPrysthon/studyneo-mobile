@@ -4,15 +4,15 @@ import { createContext } from 'react';
 import api from '../services/api';
 
 import AsyncStorage from '@react-native-community/async-storage';
-import { showMessage } from 'react-native-flash-message';
 
 interface User {
   token: string;
+  name: string | null;
 }
 
 interface AuthContextData {
   signed: boolean;
-  user: User;
+  user: User | null;
   signIn(email: string, password: string): Promise<void>;
   signOut(): void;
   loading: boolean;
@@ -41,10 +41,12 @@ export const AuthProvider: React.FC = ({ children }) => {
     try {
       const { data } = await api.post('auth', { email, password })
       setUser({
-        token: data.token,
+        token: data.token.token,
+        name: data.user.name
       });
       await AsyncStorage.setItem('@RNAuth:user', JSON.stringify({
-        token: data.token,
+        token: data.token.token,
+        user: data.user.name
       }))
     } catch (error) {
 
@@ -58,7 +60,7 @@ export const AuthProvider: React.FC = ({ children }) => {
   }
 
   return (
-    <AuthContext.Provider value={{ signed: !!user, signIn, user: { token: '', refresh: '' }, signOut, loading }}>
+    <AuthContext.Provider value={{ signed: !!user, signIn, user, signOut, loading }}>
       {children}
     </AuthContext.Provider>
   );
