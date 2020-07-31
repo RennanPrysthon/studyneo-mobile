@@ -18,18 +18,22 @@ import AuthContext from '../../contexts/auth';
 import { useNavigation, StackActions } from '@react-navigation/native';
 import Top from '../../assets/top1.svg';
 import Logo from '../../assets/logo.svg';
-import { TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { TouchableWithoutFeedback, Keyboard, ActivityIndicator } from 'react-native';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
+  const [waitin, setWaiting] = useState(false);
 
   const { signIn } = useContext(AuthContext);
   const navigation = useNavigation();
 
   const handlerCadastrar = () => navigation.dispatch(StackActions.push("SignOn"))
 
-  const handlerLogar = () => signIn(email, senha);
+  const handlerLogar = () => {
+    setWaiting(true);
+    signIn(email, senha).then(() => setWaiting(false));
+  };
 
   return (
     <Container
@@ -44,18 +48,20 @@ const Login = () => {
             <Input placeholder="Senha" secureTextEntry={true} value={senha} onChangeText={setSenha} />
             <Esqueci>Esqueci a senha</Esqueci>
             <Submit onPress={handlerLogar} >
-              <SubmitText>
-                Entrar
-					</SubmitText>
+              {waitin && <ActivityIndicator size={27} color="#ffffff" />}
+              {!waitin &&
+                <SubmitText>
+                  Entrar
+					    </SubmitText>}
             </Submit>
             <Hint>
               <HintText>
                 Não tem conta?
-					</HintText>
+					    </HintText>
               <Link onPress={handlerCadastrar} >
                 <HintAction>
                   CADASTRE-SE
-					  </HintAction>
+					     </HintAction>
               </Link>
             </Hint>
           </Form>
