@@ -19,7 +19,7 @@ export const List = styled.ScrollView`
   padding: 10px;
 `;
 
-export const ListItem = styled.View`
+export const ListItem = styled.TouchableOpacity`
   width: 88px;
   height: 88px;
   margin-right: 20px;

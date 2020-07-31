@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 
 import { Container, Item, AreaTitle, List, ListItem, MatterText } from './styles';
 import api from '../../services/api';
+import { useNavigation } from '@react-navigation/native';
 
 interface Matter {
   id: number;
@@ -27,7 +28,7 @@ const colors = [
 const Home: React.FC = () => {
   const [feed, setFeed] = useState<Area[]>([] as Area[]);
   const [loading, setLoading] = useState(true);
-
+  const navigation = useNavigation();
   useEffect(() => {
 
     async function loadData() {
@@ -39,9 +40,8 @@ const Home: React.FC = () => {
     setLoading(false);
   }, [])
 
-  if (loading) return null;
 
-  function embaralha(array: string[]) {
+  const embaralha = useCallback((array: string[]) => {
     var lista = array;
     for (let indice = lista.length; indice; indice--) {
 
@@ -55,31 +55,39 @@ const Home: React.FC = () => {
       lista[indiceAleatorio] = elemento;
     }
     return lista
-  }
+  }, [])
+
+  if (loading) return null;
+
 
   return (
     <Container>
-      {feed?.map(item => (
-        <Item key={item.id}>
-          <AreaTitle>{item?.title}</AreaTitle>
-          <List
-            horizontal={true}
-            showsHorizontalScrollIndicator={false}
-          >
-            {item.matters.map((matter, index) => (
-              <ListItem key={matter.id}
-                style={{
-                  backgroundColor: `${embaralha(colors)[index]}`
-                }}
-              >
-                <MatterText>
-                  {matter.title}
-                </MatterText>
-              </ListItem>
-            ))}
-          </List>
-        </Item>
-      ))}
+      {feed?.map(item => {
+        const cores = embaralha(colors);
+        return (
+          <Item key={item.id}>
+            <AreaTitle>{item?.title}</AreaTitle>
+            <List
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
+            >
+              {item.matters.map((matter, index) => (
+                <ListItem
+                  onPress={() => navigation.navigate('subjectsDetail', { id: matter.id, title: matter.title })}
+                  key={matter.id}
+                  style={{
+                    backgroundColor: `${cores[index]}`
+                  }}
+                >
+                  <MatterText>
+                    {matter.title}
+                  </MatterText>
+                </ListItem>
+              ))}
+            </List>
+          </Item>
+        )
+      })}
     </Container>
   )
 }

@@ -3,7 +3,9 @@ import Storage from '../storage/auth';
 import { showMessage } from 'react-native-flash-message';
 
 const api = axios.create({
-  baseURL: 'http://67.205.162.29/',
+  // baseURL: 'http://10.0.2.2:3333/',
+  // baseURL: 'http://67.205.162.29/',
+  baseURL: 'https://api.studyneo.com.br'
 });
 
 interface Erro {

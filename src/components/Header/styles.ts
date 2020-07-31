@@ -5,7 +5,7 @@ export const Container = styled.View`
   padding: 25px 20px;
   align-items: center;
   flex-direction: row;
-
+  text-align: center;
   background-color: #00B5E2;
 `;
 
@@ -17,6 +17,13 @@ export const Top = styled.View`
 `;
 
 export const Tap = styled.TouchableOpacity`
-  flex: 0;
+  flex: 1;
   padding: 10px 0;
+`;
+
+export const Title = styled.Text`
+  text-align: center;
+  font-size: 16px;
+  color: #ffffff;
+  font-weight: bold;
 `;

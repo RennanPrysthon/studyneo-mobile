@@ -6,7 +6,6 @@ import Markdown from 'react-native-markdown-display';
 
 import { Container } from './styles';
 import { showMessage } from 'react-native-flash-message';
-import Back from '../../components/Back';
 
 const copy = `
 
@@ -77,27 +76,24 @@ ___
 
 const Resume: React.FC = () => {
   return (
-    <>
-      <Back />
-      <Container
-        contentInsetAdjustmentBehavior="automatic"
+    <Container
+      contentInsetAdjustmentBehavior="automatic"
+    >
+      <Markdown
+        onLinkPress={str => {
+          Linking.openURL(str).catch(err => {
+            showMessage({
+              message: "Erro ao abrir pagina web",
+              description: `Endereço ${str} não pode ser encontrado`,
+              type: "danger"
+            })
+          });
+          return false;
+        }}
       >
-        <Markdown
-          onLinkPress={str => {
-            Linking.openURL(str).catch(err => {
-              showMessage({
-                message: "Erro ao abrir pagina web",
-                description: `Endereço ${str} não pode ser encontrado`,
-                type: "danger"
-              })
-            });
-            return false;
-          }}
-        >
-          {copy}
-        </Markdown>
-      </Container>
-    </>
+        {copy}
+      </Markdown>
+    </Container>
   )
 }
 
