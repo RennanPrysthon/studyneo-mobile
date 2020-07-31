@@ -41,6 +41,22 @@ const Home: React.FC = () => {
 
   if (loading) return null;
 
+  function embaralha(array: string[]) {
+    var lista = array;
+    for (let indice = lista.length; indice; indice--) {
+
+      const indiceAleatorio = Math.floor(Math.random() * indice);
+
+      // guarda de um índice aleatório da lista
+      const elemento = lista[indice - 1];
+
+      lista[indice - 1] = lista[indiceAleatorio];
+
+      lista[indiceAleatorio] = elemento;
+    }
+    return lista
+  }
+
   return (
     <Container>
       {feed?.map(item => (
@@ -53,7 +69,7 @@ const Home: React.FC = () => {
             {item.matters.map((matter, index) => (
               <ListItem key={matter.id}
                 style={{
-                  backgroundColor: `${colors[Math.floor(Math.random() * 6)]}`
+                  backgroundColor: `${embaralha(colors)[index]}`
                 }}
               >
                 <MatterText>
