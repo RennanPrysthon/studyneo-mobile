@@ -3,7 +3,7 @@ import Storage from '../storage/auth';
 import { showMessage } from 'react-native-flash-message';
 
 const api = axios.create({
-  baseURL: 'http://67.205.162.29/',
+  baseURL: 'https://api.studyneo.com.br/',
 });
 
 api.interceptors.request.use(async (request) => {
@@ -23,7 +23,7 @@ api.interceptors.response.use((response) => {
 }, (error) => {
   if (error.response.status === 401) {
     const erros = error.response.data;
-    erros.forEach((erro) => {
+    erros.forEach((erro: any) => {
       showMessage({
         message: erro.field,
         description: erro.message,

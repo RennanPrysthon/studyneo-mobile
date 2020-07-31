@@ -17,6 +17,6 @@ export const Top = styled.View`
 `;
 
 export const Tap = styled.TouchableOpacity`
-  flex: 0;
-  padding: 10px 0;
+  flex: 1;
+  padding: 10px;
 `;
