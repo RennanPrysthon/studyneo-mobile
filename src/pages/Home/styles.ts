@@ -10,6 +10,7 @@ export const AreaTitle = styled.Text`
   font-size: 22px;
   font-weight: 600;
   padding-left: 20px;
+  font-family: 'Rubik-Medium';
 `;
 
 export const Item = styled.View`
@@ -22,18 +23,20 @@ export const List = styled.ScrollView`
 `;
 
 export const ListItem = styled.TouchableOpacity`
-  width: 88px;
-  height: 88px;
+  width: 90px;
+  height: 90px;
   margin-right: 8px;
   margin-left: 20px;
   border-radius: 5px;
   justify-content: center;
   align-items: center;
   text-align: center;
+  padding: 5px;
 `;
 
 export const MatterText = styled.Text`
-  font-size: 14px;
+  font-size: 16px;
   text-align: center;
   color: #fff;
+  font-family: 'Rubik-Regular';
 `;
