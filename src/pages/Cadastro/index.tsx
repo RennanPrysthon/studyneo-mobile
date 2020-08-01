@@ -1,5 +1,10 @@
 import React from 'react';
 
+import { ActivityIndicator } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { showMessage } from 'react-native-flash-message';
+import api from '../../services/api';
+
 import {
   Container,
   Header,
@@ -12,12 +17,9 @@ import {
   BackButon,
   BackText,
 } from './styles';
+
 import Top from '../../assets/top2.svg';
 import Logo from '../../assets/imagotipo-horizontal.svg';
-import { useNavigation } from '@react-navigation/native';
-import api from '../../services/api';
-import { showMessage } from 'react-native-flash-message';
-import { ActivityIndicator } from 'react-native';
 
 interface Cadastro {
   email: string;
@@ -38,8 +40,23 @@ const Cadastro: React.FC = () => {
     , [name, email, pass, confirmPass]
   );
 
+  function showFlashError(description: string, message: string = 'Erro') {
+    showMessage({
+      message,
+      description,
+      type: 'danger'
+    })
+  }
+
+  function showErros() {
+    if (name === '') { showFlashError('Preencha o nome', 'Nome'); return; }
+    if (email === '') { showFlashError('Preencha o email', 'Email'); return; }
+    if (pass === '') { showFlashError('Preencha a senha', 'Senha'); return; }
+    if (pass !== confirmPass) { showFlashError('Senhas não estão iguais', 'Senha'); return; }
+  }
+
   const submitForm = async () => {
-    if (!able) return;
+    if (!able) return showErros();
     if (loading) return;
     console.log(loading)
     setLoading(true);
