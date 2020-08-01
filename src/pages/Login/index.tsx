@@ -28,7 +28,7 @@ const Login = () => {
   const { signIn } = useContext(AuthContext);
   const navigation = useNavigation();
 
-  const handlerCadastrar = () => navigation.dispatch(StackActions.push("SignOn"))
+  const handlerCadastrar = () => navigation.navigate("SignOn", { title: 'cadastro' })
 
   const handlerLogar = () => {
     setWaiting(true);

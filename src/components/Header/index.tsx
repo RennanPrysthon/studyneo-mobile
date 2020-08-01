@@ -19,15 +19,15 @@ type ParamsList = {
   }
 }
 
+const CHAR_LIMIT = 25;
+
 const Header: React.FC<Props> = ({ navigation }) => {
   const nav = useNavigation();
   const routes = useRoute<RouteProp<ParamsList, 'ID'>>();
-  const canBack = React.useMemo(() => {
-    return navigation?.canGoBack();
-  }, [navigation])
+  const canBack = React.useMemo(() => navigation?.canGoBack(), [navigation])
 
   function getText(str: string = '') {
-    if (str.length >= 20) return str.substring(0, 20) + '...';
+    if (str.length >= CHAR_LIMIT) return str.substring(0, CHAR_LIMIT) + '...';
     return str;
   }
 

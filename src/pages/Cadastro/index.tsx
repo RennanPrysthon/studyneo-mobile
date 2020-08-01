@@ -16,11 +16,16 @@ import {
   SubmitText,
   BackButon,
   BackText,
+  Terms,
+  TermsText,
+  TermsLink,
+  Link
 } from './styles';
 
 import Top from '../../assets/top2.svg';
 import Logo from '../../assets/imagotipo-horizontal.svg';
-
+import CheckBox from '@react-native-community/checkbox';
+import Termos from '../Termos';
 interface Cadastro {
   email: string;
   password: string;
@@ -32,12 +37,13 @@ const Cadastro: React.FC = () => {
   const [email, setEmail] = React.useState('');
   const [pass, setPass] = React.useState('');
   const [confirmPass, setConfirmPass] = React.useState('');
+  const [acceptedTerms, setAcceptedTerms] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
   const navigation = useNavigation();
 
   const able = React.useMemo(
-    () => name !== '' && email !== '' && (pass !== '' && pass === confirmPass)
-    , [name, email, pass, confirmPass]
+    () => acceptedTerms !== false && name !== '' && email !== '' && (pass !== '' && pass === confirmPass)
+    , [name, email, pass, confirmPass, acceptedTerms]
   );
 
   function showFlashError(description: string, message: string = 'Erro') {
@@ -53,12 +59,13 @@ const Cadastro: React.FC = () => {
     if (email === '') { showFlashError('Preencha o email', 'Email'); return; }
     if (pass === '') { showFlashError('Preencha a senha', 'Senha'); return; }
     if (pass !== confirmPass) { showFlashError('Senhas não estão iguais', 'Senha'); return; }
+    if (acceptedTerms !== true) { showFlashError('Você precisa aceitar nossos termos', 'Termos'); return; }
   }
 
   const submitForm = async () => {
     if (!able) return showErros();
     if (loading) return;
-    console.log(loading)
+
     setLoading(true);
     const user: Cadastro = {
       email,
@@ -66,15 +73,15 @@ const Cadastro: React.FC = () => {
       password: pass
     }
     try {
-      const response = await api.post('users', user);
+      await api.post('users', user);
       showMessage({
         message: `${name} cadastrado!`,
         type: "success",
         duration: 1000
       });
 
-      navigation.goBack();
       setLoading(false);
+      navigation.goBack();
     } catch (error) {
       console.log(error);
       setLoading(false);
@@ -104,6 +111,33 @@ const Cadastro: React.FC = () => {
           Confirmar senha
         </Label>
         <Input value={confirmPass} onChangeText={setConfirmPass} secureTextEntry={true} />
+        <Terms>
+          <CheckBox
+            disabled={false}
+            value={acceptedTerms}
+            onValueChange={(term: boolean) => setAcceptedTerms(term)}
+          />
+          <TermsText>
+            Aceitar nossos{' '}
+          </TermsText>
+          <Link
+            onPress={() => navigation.navigate('termos', { title: 'Termos de uso' })}
+          >
+            <TermsLink>
+              termos de uso
+            </TermsLink>
+          </Link>
+          <TermsText>
+            {' '}e{' '}
+          </TermsText>
+          <Link
+            onPress={() => navigation.navigate('politica', { title: 'Politica de privacidade' })}
+          >
+            <TermsLink>
+              politica de privacidade
+            </TermsLink>
+          </Link>
+        </Terms>
       </Form>
       <Footer>
         <Submit onPress={submitForm} desabilitado={able}>

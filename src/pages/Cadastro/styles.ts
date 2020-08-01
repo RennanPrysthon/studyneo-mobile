@@ -47,7 +47,6 @@ export const Footer = styled.View`
 `;
 
 export const Submit = styled(TouchableOpacity) <Props>`
-  /* background-color: #00B5E2; */
   background-color: ${({ desabilitado }) => desabilitado === true ? '#00B5E2' : '#a0a0a0'};
   padding: 10px;
   border-radius: 10px;
@@ -70,11 +69,16 @@ export const BackText = styled.Text`
   color: #6A6A6A;
 `;
 
-
-
-
-
-
-
-
-
+export const Terms = styled.View`
+  flex-direction: row;
+  align-items: center;
+`;
+export const TermsText = styled.Text`
+  font-size: 12px;
+`;
+export const Link = styled.TouchableOpacity``;
+export const TermsLink = styled.Text`
+  font-size: 12px;
+  font-weight: bold;
+  color: #00B5E2;
+`;

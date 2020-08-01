@@ -41,7 +41,6 @@ const SubjectDetail: React.FC = () => {
   useEffect(() => {
     (async () => {
       try {
-        console.log('call')
         const { data } = await api.get(`subjects?&matter_id=${id}`)
         setSubjects(data.data)
 
