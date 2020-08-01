@@ -3,6 +3,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { Container, Item, AreaTitle, List, ListItem, MatterText } from './styles';
 import api from '../../services/api';
 import { useNavigation } from '@react-navigation/native';
+import { RefreshControl } from 'react-native';
 
 interface Matter {
   id: number;
@@ -29,17 +30,25 @@ const Home: React.FC = () => {
   const [feed, setFeed] = useState<Area[]>([] as Area[]);
   const [loading, setLoading] = useState(true);
   const navigation = useNavigation();
-  useEffect(() => {
 
-    async function loadData() {
+  async function refresh() {
+    setLoading(true);
+    try {
       const { data } = await api.get<Area[]>('areas');
-      setFeed(data)
+      setFeed(data);
+    } catch (error) {
+      console.log(error)
     }
-
-    loadData();
     setLoading(false);
-  }, [])
+  }
 
+  useEffect(() => {
+    (async () => {
+      const { data } = await api.get<Area[]>('areas');
+      setFeed(data);
+      setLoading(false);
+    })()
+  }, [])
 
   const embaralha = useCallback((array: string[]) => {
     var lista = array;
@@ -59,9 +68,12 @@ const Home: React.FC = () => {
 
   if (loading) return null;
 
-
   return (
-    <Container>
+    <Container
+      refreshControl={
+        <RefreshControl refreshing={loading} onRefresh={refresh} />
+      }
+    >
       {feed?.map(item => {
         const cores = embaralha(colors);
         return (
