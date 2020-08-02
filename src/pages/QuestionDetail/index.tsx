@@ -139,7 +139,7 @@ const QuestionDetail: React.FC = () => {
           ))}
         </Alternatives>
       </Scroll>
-      {!!selected && <SubmitQuestion isEnd={end} onPress={() => setCanShow(true)} />}
+      <SubmitQuestion canShow={!!selected} fill={end} onPress={() => setCanShow(true)} />
     </Container>
 
   )
