@@ -10,6 +10,7 @@ export const AreaTitle = styled.Text`
   font-size: 22px;
   font-weight: 600;
   padding-left: 20px;
+  color: #3d3d3d;
   font-family: 'Rubik-Medium';
 `;
 

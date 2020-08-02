@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useCallback } from 'react';
 
-import { useRoute, RouteProp, useNavigation } from '@react-navigation/native';
+import { useRoute, RouteProp } from '@react-navigation/native';
 
 import api from '../../services/api';
 
 import Loading from '../../components/Loading';
 import SubmitQuestion from '../../components/SubmitQuestion';
 
-import { Container, Header, Enunciado, Texts, Text, Question, Alternatives, AlternativeItem, Value } from './styles';
-import { useSafeArea } from 'react-native-safe-area-context';
+import { Scroll, Container, Texts, Alternatives, AlternativeItem, Value } from './styles';
+import MarkdownText from '../../utils/Markdown';
 
 type ParamsList = {
   ID: {
@@ -72,7 +72,6 @@ const QuestionDetail: React.FC = () => {
         setAlternatives(embaralha(data.alternatives))
         setLoading(false);
       } catch (error) {
-        console.log(error.response)
         setLoading(false);
       }
     }
@@ -101,52 +100,48 @@ const QuestionDetail: React.FC = () => {
   }
 
   return (
-    <>
-      <Container
+    <Container>
+      <Scroll
         scrollEventThrottle={400}
-        onScroll={({ nativeEvent }) => {
-          if (isCloseToBottom(nativeEvent)) {
-            setEnd(true);
-          } else {
-            setEnd(false);
-          }
-        }}
+        showsVerticalScrollIndicator={false}
+        onScroll={({ nativeEvent }) => setEnd(!!isCloseToBottom(nativeEvent) ? true : false)}
+        contentInsetAdjustmentBehavior="automatic"
       >
-        <Header>
-          <Enunciado>
-            {question.enunciado}
-          </Enunciado>
-          <Texts>
-            {question.texts.map(t => (
-              <Text>
-                {t.content}
-              </Text>
-            ))}
-          </Texts>
-          <Question>
-            {question.question}
-          </Question>
-        </Header>
+        <MarkdownText>
+          {question.enunciado}
+        </MarkdownText>
+        <Texts>
+          {question.texts?.map(t => (
+            <MarkdownText key={t.title}>
+              {t.content}
+            </MarkdownText>
+          ))}
+        </Texts>
+        <MarkdownText>
+          {question.question}
+        </MarkdownText>
         <Alternatives>
           {alternatives.map(alt => (
             <AlternativeItem
+              key={alt.id}
               isSelected={alt.id === selected}
               bgColor={getColor(alt)}
               onPress={() => select(alt.id)}
-              key={alt.id}
             >
-              <Value
-                bgColor={getColor(alt)}
+              <MarkdownText
+                style={{
+                  text: getColor(alt).text
+                }}
               >
                 {alt.body}
-              </Value>
+              </MarkdownText>
             </AlternativeItem>
           ))}
         </Alternatives>
-      </Container>
-      {!!selected && <SubmitQuestion
-        onPress={() => setCanShow(true)} />}
-    </>
+      </Scroll>
+      {!!selected && <SubmitQuestion isEnd={end} onPress={() => setCanShow(true)} />}
+    </Container>
+
   )
 }
 

@@ -16,7 +16,7 @@ const SignUp: React.FC = () => (
       header: ({ navigation }) => <Header navigation={navigation} />
     }}
   >
-    <Stack.Screen name="cadastro" component={Cadastro} />
+    <Stack.Screen options={{ headerShown: false }} name="cadastro" component={Cadastro} />
     <Stack.Screen name="termos" component={Termos} />
     <Stack.Screen name="politica" component={Politica} />
   </Stack.Navigator>

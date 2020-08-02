@@ -1,6 +1,5 @@
 import styled from 'styled-components/native';
-import Markdown from 'react-native-markdown-display';
-import { TouchableOpacity } from 'react-native';
+import { TouchableOpacity, Text } from 'react-native';
 
 interface Props {
   isSelected?: boolean;
@@ -10,34 +9,28 @@ interface Props {
   };
 }
 
-export const Container = styled.ScrollView`
+export const Container = styled.View`
+  flex: 1;
+  background-color: #ffffff;
+`;
+
+export const Scroll = styled.ScrollView`
   flex: 1;
   padding: 10px;
-  background-color: #ffffff;
+  height: 100%;
 `;
 
 export const Header = styled.View`
 
 `;
 
-export const Enunciado = styled.Text`
-
-`;
-
-export const Texts = styled(Markdown)`
-
-`;
-
-export const Text = styled.Text`
-
-`;
-
-export const Question = styled.Text`
+export const Texts = styled.ScrollView`
 
 `;
 
 export const Alternatives = styled.View`
   padding: 10px;
+  margin-bottom: 60px;
 `;
 
 export const AlternativeItem = styled(TouchableOpacity) <Props>`

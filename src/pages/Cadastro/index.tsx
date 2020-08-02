@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ActivityIndicator } from 'react-native';
+import { ActivityIndicator, TouchableWithoutFeedbackBase, Keyboard, KeyboardAvoidingView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { showMessage } from 'react-native-flash-message';
 import api from '../../services/api';
@@ -25,7 +25,7 @@ import {
 import Top from '../../assets/top2.svg';
 import Logo from '../../assets/imagotipo-horizontal.svg';
 import CheckBox from '@react-native-community/checkbox';
-import Termos from '../Termos';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 interface Cadastro {
   email: string;
   password: string;
@@ -62,7 +62,7 @@ const Cadastro: React.FC = () => {
     if (acceptedTerms !== true) { showFlashError('Você precisa aceitar nossos termos', 'Termos'); return; }
   }
 
-  const submitForm = async () => {
+  const submitForm = () => {
     if (!able) return showErros();
     if (loading) return;
 
@@ -72,88 +72,93 @@ const Cadastro: React.FC = () => {
       name,
       password: pass
     }
-    try {
-      await api.post('users', user);
-      showMessage({
-        message: `${name} cadastrado!`,
-        type: "success",
-        duration: 1000
-      });
+    api.post('users', user)
+      .then(response => {
+        console.log(response)
+        showMessage({
+          message: `${name} cadastrado!`,
+          type: "success",
+          duration: 1000
+        });
 
-      setLoading(false);
-      navigation.goBack();
-    } catch (error) {
-      console.log(error);
-      setLoading(false);
-    }
+        setLoading(false);
+        navigation.goBack();
+      })
+      .catch(e => {
+        setLoading(false);
+        throw e;
+      })
+
   }
 
   return (
-    <Container>
-      <Header>
-        <Top width={'100%'} />
-        <Logo />
-      </Header>
-      <Form>
-        <Label>
-          Nome
+    <Container >
+      <KeyboardAvoidingView>
+        <Header>
+          <Top width={'100%'} />
+          <Logo />
+        </Header>
+        <Form>
+          <Label>
+            Nome
         </Label>
-        <Input value={name} onChangeText={setName} />
-        <Label>
-          Email
+          <Input value={name} onChangeText={setName} />
+          <Label>
+            Email
         </Label>
-        <Input value={email} onChangeText={setEmail} />
-        <Label>
-          Senha
+          <Input value={email} onChangeText={setEmail} />
+          <Label>
+            Senha
         </Label>
-        <Input value={pass} onChangeText={setPass} secureTextEntry={true} />
-        <Label>
-          Confirmar senha
+          <Input value={pass} onChangeText={setPass} secureTextEntry={true} />
+          <Label>
+            Confirmar senha
         </Label>
-        <Input value={confirmPass} onChangeText={setConfirmPass} secureTextEntry={true} />
-        <Terms>
-          <CheckBox
-            disabled={false}
-            value={acceptedTerms}
-            onValueChange={(term: boolean) => setAcceptedTerms(term)}
-          />
-          <TermsText>
-            Aceitar nossos{' '}
-          </TermsText>
-          <Link
-            onPress={() => navigation.navigate('termos', { title: 'Termos de uso' })}
-          >
-            <TermsLink>
-              termos de uso
+          <Input value={confirmPass} onChangeText={setConfirmPass} secureTextEntry={true} />
+          <Terms>
+            <CheckBox
+              disabled={false}
+              value={acceptedTerms}
+              onValueChange={(term: boolean) => setAcceptedTerms(term)}
+            />
+            <TermsText>
+              Aceitar nossos{' '}
+            </TermsText>
+            <Link
+              onPress={() => navigation.navigate('termos', { title: 'Termos de uso' })}
+            >
+              <TermsLink>
+                termos de uso
             </TermsLink>
-          </Link>
-          <TermsText>
-            {' '}e{' '}
-          </TermsText>
-          <Link
-            onPress={() => navigation.navigate('politica', { title: 'Politica de privacidade' })}
-          >
-            <TermsLink>
-              politica de privacidade
+            </Link>
+            <TermsText>
+              {' '}e{' '}
+            </TermsText>
+            <Link
+              onPress={() => navigation.navigate('politica', { title: 'Politica de privacidade' })}
+            >
+              <TermsLink>
+                politica de privacidade
             </TermsLink>
-          </Link>
-        </Terms>
-      </Form>
-      <Footer>
-        <Submit onPress={submitForm} desabilitado={able}>
-          {loading && <ActivityIndicator size={27} color="#ffffff" />}
-          {!loading &&
-            <SubmitText>
-              Cadastrar
+            </Link>
+          </Terms>
+        </Form>
+        <Footer>
+          <Submit onPress={submitForm} desabilitado={able}>
+            {loading && <ActivityIndicator size={27} color="#ffffff" />}
+            {!loading &&
+              <SubmitText>
+                Cadastrar
           </SubmitText>}
-        </Submit>
-        <BackButon onPress={() => navigation.goBack()}>
-          <BackText>
-            Voltar
+          </Submit>
+          <BackButon onPress={() => navigation.goBack()}>
+            <BackText>
+              Voltar
             </BackText>
-        </BackButon>
-      </Footer>
-    </Container>
+          </BackButon>
+        </Footer>
+      </KeyboardAvoidingView>
+    </Container >
   )
 }
 
