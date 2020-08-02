@@ -40,13 +40,22 @@ const QuestionDetail: React.FC = () => {
   const [question, setQuestion] = useState<Question>({} as Question);
   const [alternatives, setAlternatives] = useState<Alternative[]>([]);
   const [loading, setLoading] = useState(true);
-  const [selected, setSelected] = useState<number>();
+  const [selected, setSelected] = useState<number | null>(null);
   const [end, setEnd] = useState(false);
   const [canShow, setCanShow] = useState(false);
 
   const routes = useRoute<RouteProp<ParamsList, 'ID'>>();
 
   const { id } = routes.params;
+
+  useEffect(() => {
+    setCanShow(false);
+    setEnd(false);
+    return () => {
+      setCanShow(false);
+      setEnd(false);
+    }
+  }, [])
 
   const embaralha = useCallback((array: Alternative[]) => {
     var lista = array;
@@ -139,7 +148,7 @@ const QuestionDetail: React.FC = () => {
           ))}
         </Alternatives>
       </Scroll>
-      {!!selected && <SubmitQuestion isEnd={end} onPress={() => setCanShow(true)} />}
+      <SubmitQuestion canShow={!!selected} fill={end} onPress={() => setCanShow(true)} />
     </Container>
 
   )
