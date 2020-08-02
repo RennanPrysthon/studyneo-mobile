@@ -1,9 +1,14 @@
 import styled from 'styled-components/native';
 
-export const Container = styled.ScrollView`
+export const Scroll = styled.ScrollView`
   flex: 1;
-  padding: 0px;
+  padding: 20px 0;
   background-color: #fefefe;
+`;
+
+export const Container = styled.View`
+  flex: 1;
+  margin-bottom: 40px;
 `;
 
 export const AreaTitle = styled.Text`
@@ -15,24 +20,30 @@ export const AreaTitle = styled.Text`
 `;
 
 export const Item = styled.View`
-  margin-bottom: 20px;
-  margin-top: 20px;
+  margin-bottom: 5px;
+  margin-top: 5px;
 `;
 
-export const List = styled.ScrollView`
+export const List = styled.ScrollView.attrs({
+  horizontal: true,
+  contentContainerStyle: { paddingRight: 40 },
+  showsHorizontalScrollIndicator: false,
+})
+  `
   padding-top: 10px;
+  padding-left: 25px;
 `;
 
 export const ListItem = styled.TouchableOpacity`
-  width: 90px;
-  height: 90px;
-  margin-right: 8px;
-  margin-left: 20px;
+  width: 100px;
+  height: 100px;
+  margin-left: 10px;
   border-radius: 5px;
   justify-content: center;
   align-items: center;
   text-align: center;
   padding: 5px;
+  margin-right: 10px;
 `;
 
 export const MatterText = styled.Text`

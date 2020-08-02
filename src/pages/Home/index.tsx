@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 
-import { Container, Item, AreaTitle, List, ListItem, MatterText } from './styles';
+import { Scroll, Container, Item, AreaTitle, List, ListItem, MatterText } from './styles';
 import api from '../../services/api';
 import { useNavigation } from '@react-navigation/native';
 import { RefreshControl } from 'react-native';
@@ -69,38 +69,37 @@ const Home: React.FC = () => {
   if (loading) return null;
 
   return (
-    <Container
+    <Scroll
       refreshControl={
         <RefreshControl refreshing={loading} onRefresh={refresh} />
       }
     >
-      {feed?.map(item => {
-        const cores = embaralha(colors);
-        return (
-          <Item key={item.id}>
-            <AreaTitle>{item?.title}</AreaTitle>
-            <List
-              horizontal={true}
-              showsHorizontalScrollIndicator={false}
-            >
-              {item.matters.map((matter, index) => (
-                <ListItem
-                  onPress={() => navigation.navigate('subjectsDetail', { id: matter.id, title: matter.title })}
-                  key={matter.id}
-                  style={{
-                    backgroundColor: `${cores[index]}`
-                  }}
-                >
-                  <MatterText>
-                    {matter.title}
-                  </MatterText>
-                </ListItem>
-              ))}
-            </List>
-          </Item>
-        )
-      })}
-    </Container>
+      <Container>
+        {feed?.map(item => {
+          const cores = embaralha(colors);
+          return (
+            <Item key={item.id}>
+              <AreaTitle>{item?.title}</AreaTitle>
+              <List>
+                {item.matters.map((matter, index) => (
+                  <ListItem
+                    onPress={() => navigation.navigate('subjectsDetail', { id: matter.id, title: matter.title })}
+                    key={matter.id}
+                    style={{
+                      backgroundColor: `${cores[index]}`
+                    }}
+                  >
+                    <MatterText>
+                      {matter.title}
+                    </MatterText>
+                  </ListItem>
+                ))}
+              </List>
+            </Item>
+          )
+        })}
+      </Container>
+    </Scroll>
   )
 }
 
