@@ -12,11 +12,14 @@ export const Header = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
+
 `;
 
 export const Title = styled.Text`
   font-size: 20px;
   font-weight: bold;
+  margin-right: 5px;
+  flex-wrap: wrap;s
 `;
 export const Details = styled.View`
   padding: 5px 10px;
@@ -49,18 +52,22 @@ export const ListContainer = styled.View`
 `;
 
 export const List = styled.View`
-  padding: 20px;
+  padding: 10px;
   flex-direction: row;
+  justify-content: center;
   flex-wrap: wrap;
+  background-color: #F6F6F6;
+  flex: 1;
 `;
 
 export const Button = styled.TouchableOpacity`
-  width: 150px;
+  width: 100%;
+  max-width: 150px;
   height: 150px;
   background-color: #ffffff;
-  padding: 20px;
+  padding: 5px;
   border-radius: 10px;
-  margin: 10px;
+  margin: 5px;
 
   justify-content: center;
   align-items: center;
@@ -77,4 +84,10 @@ export const Icon = styled(AntDesign).attrs({
 })`
   font-size: 35px;
   color: #555555;
+`;
+
+export const TitleArea = styled.View`
+  flex: 1;
+  padding: 15px;
+  text-align: center;
 `;

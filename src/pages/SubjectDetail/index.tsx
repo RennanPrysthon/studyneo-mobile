@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 
 import { useRoute, RouteProp, useNavigation } from '@react-navigation/native';
 import Loading from '../../components/Loading';
@@ -17,7 +17,8 @@ import {
   ListContainer,
   Button,
   ButtonTitle,
-  Icon
+  Icon,
+  TitleArea
 } from './styles';
 
 type ParamsList = {
@@ -57,12 +58,29 @@ const SubjectDetail: React.FC = () => {
 
   const { title, matter_id, overview_counts, questions_counts } = subject;
 
+  function getText(text: string) {
+    var final = '';
+    var count = 0;
+
+    if (text.length > 24) {
+      const parts = text.split(' ');
+
+    }
+
+    return final;
+  }
+
   return (
     <Container>
       <Header>
-        <Title>
-          {title}
-        </Title>
+        <TitleArea>
+
+          <Title
+            style={{
+              textAlign: 'left'
+            }}
+          >{title}</Title>
+        </TitleArea>
         <Details>
           <KeyList>
             <Key>
@@ -83,24 +101,33 @@ const SubjectDetail: React.FC = () => {
           </KeyList>
         </Details>
       </Header>
-      <ListContainer>
-        <List>
-          <Button
-            onPress={() => navigation.navigate('questionList', { id })}
-          >
-            <Icon name="book" />
-            <ButtonTitle>
-              Questões
+      <List>
+        <Button
+          onPress={() => {
+            if (questions_counts > 0) {
+              navigation.navigate('questionList', { id })
+            }
+          }}
+        >
+          <Icon name="book" />
+          <ButtonTitle>
+            Questões
             </ButtonTitle>
-          </Button>
-          <Button>
-            <Icon name="filetext1" />
-            <ButtonTitle>
-              Resumos
+        </Button>
+        <Button
+          onPress={() => {
+            if (overview_counts > 0) {
+              navigation.navigate('overviewDetail', { id })
+            }
+          }}
+        >
+          <Icon name="filetext1" />
+          <ButtonTitle>
+            Resumos
             </ButtonTitle>
-          </Button>
-        </List>
-      </ListContainer>
+        </Button>
+      </List>
+
     </Container>
   );
 }

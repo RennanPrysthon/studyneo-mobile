@@ -41,7 +41,7 @@ const MatterDetail: React.FC = () => {
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await api.get(`subjects?&matter_id=${id}`)
+        const { data } = await api.get(`subjects?&matter_id=${id}&perPage=16`)
         setSubjects(data.data)
 
       } catch (error) {
