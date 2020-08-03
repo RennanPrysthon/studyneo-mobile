@@ -56,7 +56,6 @@ const Home: React.FC = () => {
 
       const indiceAleatorio = Math.floor(Math.random() * indice);
 
-      // guarda de um índice aleatório da lista
       const elemento = lista[indice - 1];
 
       lista[indice - 1] = lista[indiceAleatorio];
@@ -67,6 +66,13 @@ const Home: React.FC = () => {
   }, [])
 
   if (loading) return null;
+
+  function getColors(cores: string[], index: number) {
+    if (index >= cores.length) {
+      return cores[((index - cores.length))]
+    }
+    return cores[index]
+  }
 
   return (
     <Scroll
@@ -86,7 +92,7 @@ const Home: React.FC = () => {
                     onPress={() => navigation.navigate('subjectsDetail', { id: matter.id, title: matter.title })}
                     key={matter.id}
                     style={{
-                      backgroundColor: `${cores[index]}`
+                      backgroundColor: getColors(cores, index)
                     }}
                   >
                     <MatterText>
