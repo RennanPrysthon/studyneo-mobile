@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useCallback } from 'react';
 
-import SubmitQuestion from '../../components/SubmitQuestion';
+import SubmitQuestion from '../../../components/SubmitQuestion';
 
 import { Scroll, Container, Texts, Alternatives, AlternativeItem, Value } from './styles';
-import MarkdownText from '../../utils/Markdown';
-import api from '../../services/api';
-import Loading from '../../components/Loading';
+import MarkdownText from '../../../utils/Markdown';
+import api from '../../../services/api';
+import Loading from '../../../components/Loading';
 
 interface Texto {
   content: string;

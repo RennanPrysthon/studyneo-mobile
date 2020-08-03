@@ -5,8 +5,8 @@ import { createStackNavigator } from '@react-navigation/stack'
 import Header from '../components/Header';
 
 import Cadastro from '../pages/Cadastro';
-import Termos from '../pages/Termos';
-import Politica from '../pages/Politica';
+import Termos from '../pages/Cadastro/Termos';
+import Politica from '../pages/Cadastro/Politica';
 
 const Stack = createStackNavigator();
 

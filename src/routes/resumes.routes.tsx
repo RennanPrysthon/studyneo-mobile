@@ -2,7 +2,7 @@ import React from 'react';
 
 import { createStackNavigator } from "@react-navigation/stack";
 
-import ResumeList from '../pages/ResumeList';
+import ResumeList from '../pages/Overviews/ResumeList';
 
 const Stack = createStackNavigator();
 

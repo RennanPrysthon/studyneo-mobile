@@ -1,9 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-import { Container, Item, Name } from './styles';
 import { useRoute, RouteProp, useNavigation } from '@react-navigation/native';
+import Loading from '../../components/Loading';
 import api from '../../services/api';
-import { RefreshControl } from 'react-native';
+
+import {
+  Container,
+  Details,
+  Header,
+  Key,
+  Value,
+  KeyList,
+  Title,
+  Divider,
+  List,
+  ListContainer,
+  Button,
+  ButtonTitle,
+  Icon
+} from './styles';
 
 type ParamsList = {
   ID: {
@@ -14,58 +29,80 @@ type ParamsList = {
 
 interface Subject {
   id: number;
+  overview_counts: number;
+  questions_counts: number;
   title: string;
   matter_id: number;
 }
 
 const SubjectDetail: React.FC = () => {
   const [loading, setLoading] = useState(true);
-  const [subjects, setSubjects] = useState<Subject[]>([]);
-  const routes = useRoute<RouteProp<ParamsList, 'ID'>>();
+  const [subject, setSubject] = useState<Subject>({} as Subject)
+  const { params } = useRoute<RouteProp<ParamsList, 'ID'>>();
+  const { id } = params;
+
   const navigation = useNavigation();
-
-  const { id } = routes.params;
-
-  async function refresh() {
-    setLoading(true);
-    try {
-      const { data } = await api.get(`subjects?&matter_id=${id}`)
-      setSubjects(data.data)
-
-    } catch (error) {
-      console.log(error.response)
-    }
-    setLoading(false);
-  }
 
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await api.get(`subjects?&matter_id=${id}`)
-        setSubjects(data.data)
-
-      } catch (error) {
-        console.log(error.response)
-      }
-      setLoading(false);
+        const { data } = await api.get<Subject>(`subjects/view/${id}`)
+        setSubject(data);
+        setLoading(false)
+      } catch (error) { }
     })();
-  }, [routes]);
+  }, [id])
+
+  if (loading) return <Loading />
+
+  const { title, matter_id, overview_counts, questions_counts } = subject;
 
   return (
-    <Container
-      refreshControl={
-        <RefreshControl refreshing={loading} onRefresh={refresh} />
-      }
-    >
-      {subjects?.map(item => (
-        <Item key={item.id} onPress={() => navigation.navigate('questionList', { id: item.id, title: item.title })}>
-          <Name>
-            {item.title}
-          </Name>
-        </Item>
-      ))}
+    <Container>
+      <Header>
+        <Title>
+          {title}
+        </Title>
+        <Details>
+          <KeyList>
+            <Key>
+              {questions_counts}
+            </Key>
+            <Key>
+              {overview_counts}
+            </Key>
+          </KeyList>
+          <Divider />
+          <KeyList>
+            <Value>
+              Questões
+            </Value>
+            <Value>
+              Resumos
+            </Value>
+          </KeyList>
+        </Details>
+      </Header>
+      <ListContainer>
+        <List>
+          <Button
+            onPress={() => navigation.navigate('questionList', { id })}
+          >
+            <Icon name="book" />
+            <ButtonTitle>
+              Questões
+            </ButtonTitle>
+          </Button>
+          <Button>
+            <Icon name="filetext1" />
+            <ButtonTitle>
+              Resumos
+            </ButtonTitle>
+          </Button>
+        </List>
+      </ListContainer>
     </Container>
-  )
+  );
 }
 
 export default SubjectDetail;

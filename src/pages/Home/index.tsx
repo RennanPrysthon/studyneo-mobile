@@ -89,7 +89,7 @@ const Home: React.FC = () => {
               <List>
                 {item.matters.map((matter, index) => (
                   <ListItem
-                    onPress={() => navigation.navigate('subjectsDetail', { id: matter.id, title: matter.title })}
+                    onPress={() => navigation.navigate('matterDetail', { id: matter.id, title: matter.title })}
                     key={matter.id}
                     style={{
                       backgroundColor: getColors(cores, index)
