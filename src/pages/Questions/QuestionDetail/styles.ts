@@ -16,7 +16,7 @@ export const Container = styled.View`
 
 export const Scroll = styled.ScrollView`
   flex: 1;
-  padding: 10px;
+  padding: 30px 15px;
   height: 100%;
 `;
 
