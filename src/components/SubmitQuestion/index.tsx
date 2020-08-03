@@ -59,6 +59,7 @@ const SubmitQuestion: React.FC<Props> = ({ onPress, canShow = false, fill = fals
       onTouchStart={onPress}
       style={[
         {
+          zIndex: 100,
           position: 'absolute',
           backgroundColor: '#00B5E2',
           padding: 10,

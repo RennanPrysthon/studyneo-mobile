@@ -1,20 +1,11 @@
 import React, { useState, useEffect, useCallback } from 'react';
 
-import { useRoute, RouteProp } from '@react-navigation/native';
-
-import api from '../../services/api';
-
-import Loading from '../../components/Loading';
 import SubmitQuestion from '../../components/SubmitQuestion';
 
 import { Scroll, Container, Texts, Alternatives, AlternativeItem, Value } from './styles';
 import MarkdownText from '../../utils/Markdown';
-
-type ParamsList = {
-  ID: {
-    id: number;
-  }
-}
+import api from '../../services/api';
+import Loading from '../../components/Loading';
 
 interface Texto {
   content: string;
@@ -27,7 +18,7 @@ interface Alternative {
   isCorrect: boolean;
 }
 
-interface Question {
+export interface Question {
   id: number;
   enunciado: string;
   key: string;
@@ -36,26 +27,18 @@ interface Question {
   alternatives: Alternative[];
 }
 
-const QuestionDetail: React.FC = () => {
+interface Props {
+  id: number;
+}
+
+const QuestionDetail: React.FC<Props> = ({ id }) => {
   const [question, setQuestion] = useState<Question>({} as Question);
   const [alternatives, setAlternatives] = useState<Alternative[]>([]);
-  const [loading, setLoading] = useState(true);
   const [selected, setSelected] = useState<number | null>(null);
   const [end, setEnd] = useState(false);
   const [canShow, setCanShow] = useState(false);
 
-  const routes = useRoute<RouteProp<ParamsList, 'ID'>>();
-
-  const { id } = routes.params;
-
-  useEffect(() => {
-    setCanShow(false);
-    setEnd(false);
-    return () => {
-      setCanShow(false);
-      setEnd(false);
-    }
-  }, [])
+  const [loading, setLoading] = useState(true);
 
   const embaralha = useCallback((array: Alternative[]) => {
     var lista = array;
@@ -71,24 +54,29 @@ const QuestionDetail: React.FC = () => {
       lista[indiceAleatorio] = elemento;
     }
     return lista
+  }, [question])
+
+  useEffect(() => {
   }, [id])
 
   useEffect(() => {
-    async function loadMatter() {
+    setCanShow(false);
+    setEnd(false);
+    setSelected(null);
+
+    (async () => {
+      setLoading(true);
       try {
         const { data } = await api.get(`questions/view/${id}`);
-        setQuestion(data)
-        setAlternatives(embaralha(data.alternatives))
+        setQuestion(data);
+        setAlternatives(embaralha(data.alternatives));
         setLoading(false);
       } catch (error) {
         setLoading(false);
       }
-    }
+    })();
 
-    loadMatter();
-  }, [routes])
-
-  if (loading) return <Loading />
+  }, [id])
 
   function select(id: number) {
     if (canShow) return;
@@ -101,12 +89,15 @@ const QuestionDetail: React.FC = () => {
       contentSize.height - paddingToBottom;
   };
 
-  function getColor({ id, isCorrect }: Alternative) {
+  const getColor = useCallback(({ id, isCorrect }: Alternative) => {
     if (!canShow) return { bg: '#ffffff', text: '#333333' };
+
     if (isCorrect) return { bg: '#52c15b', text: '#ffffff' }
     if (id === selected && !isCorrect) return { bg: '#d42424', text: '#ffffff' };
     return { bg: '#ffffff', text: '#333333' };
-  }
+  }, [canShow])
+
+  if (loading) return <Loading />;
 
   return (
     <Container>
@@ -117,7 +108,7 @@ const QuestionDetail: React.FC = () => {
         contentInsetAdjustmentBehavior="automatic"
       >
         <MarkdownText>
-          {question.enunciado}
+          {question?.enunciado}
         </MarkdownText>
         <Texts>
           {question.texts?.map(t => (
@@ -150,7 +141,6 @@ const QuestionDetail: React.FC = () => {
       </Scroll>
       <SubmitQuestion canShow={!!selected} fill={end} onPress={() => setCanShow(true)} />
     </Container>
-
   )
 }
 
