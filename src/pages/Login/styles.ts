@@ -5,10 +5,14 @@ export const Container = styled.KeyboardAvoidingView`
   flex: 1;
 `;
 
-export const ContainerList = styled.View`
-  align-items: center;
+export const Scroll = styled.ScrollView`
   background-color: #fff;
   flex: 1;
+`;
+
+export const Header = styled.View`
+
+  align-items: center;
 `;
 
 export const Form = styled.View`

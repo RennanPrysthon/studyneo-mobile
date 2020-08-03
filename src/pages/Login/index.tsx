@@ -2,7 +2,8 @@ import React, { useState, useContext } from 'react';
 
 import {
   Container,
-  ContainerList,
+  Scroll,
+  Header,
   Form,
   Esqueci,
   Input,
@@ -40,9 +41,11 @@ const Login = () => {
       behavior="height"
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <ContainerList>
-          <Top width={'100%'} />
-          <Logo />
+        <Scroll>
+          <Header>
+            <Top width={'100%'} />
+            <Logo />
+          </Header>
           <Form>
             <Input placeholder="Email" value={email} onChangeText={setEmail} />
             <Input placeholder="Senha" secureTextEntry={true} value={senha} onChangeText={setSenha} />
@@ -65,7 +68,7 @@ const Login = () => {
               </Link>
             </Hint>
           </Form>
-        </ContainerList>
+        </Scroll>
       </TouchableWithoutFeedback>
     </Container>
 
