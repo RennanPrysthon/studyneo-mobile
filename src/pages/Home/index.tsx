@@ -1,9 +1,17 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, {useEffect, useState, useCallback} from 'react';
 
-import { Scroll, Container, Item, AreaTitle, List, ListItem, MatterText } from './styles';
+import {
+  Scroll,
+  Container,
+  Item,
+  AreaTitle,
+  List,
+  ListItem,
+  MatterText,
+} from './styles';
 import api from '../../services/api';
-import { useNavigation } from '@react-navigation/native';
-import { RefreshControl } from 'react-native';
+import {useNavigation} from '@react-navigation/native';
+import {RefreshControl} from 'react-native';
 
 interface Matter {
   id: number;
@@ -23,8 +31,8 @@ const colors = [
   '#3fbf6f',
   '#f89300',
   '#EF4B81',
-  '#BB16A3'
-]
+  '#BB16A3',
+];
 
 const Home: React.FC = () => {
   const [feed, setFeed] = useState<Area[]>([] as Area[]);
@@ -34,26 +42,25 @@ const Home: React.FC = () => {
   async function refresh() {
     setLoading(true);
     try {
-      const { data } = await api.get<Area[]>('areas');
+      const {data} = await api.get<Area[]>('areas');
       setFeed(data);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
     setLoading(false);
   }
 
   useEffect(() => {
     (async () => {
-      const { data } = await api.get<Area[]>('areas');
+      const {data} = await api.get<Area[]>('areas');
       setFeed(data);
       setLoading(false);
-    })()
-  }, [])
+    })();
+  }, []);
 
   const embaralha = useCallback((array: string[]) => {
     var lista = array;
     for (let indice = lista.length; indice; indice--) {
-
       const indiceAleatorio = Math.floor(Math.random() * indice);
 
       const elemento = lista[indice - 1];
@@ -62,26 +69,27 @@ const Home: React.FC = () => {
 
       lista[indiceAleatorio] = elemento;
     }
-    return lista
-  }, [])
+    return lista;
+  }, []);
 
-  if (loading) return null;
+  if (loading) {
+    return null;
+  }
 
   function getColors(cores: string[], index: number) {
     if (index >= cores.length) {
-      return cores[((index - cores.length))]
+      return cores[index - cores.length];
     }
-    return cores[index]
+    return cores[index];
   }
 
   return (
     <Scroll
       refreshControl={
         <RefreshControl refreshing={loading} onRefresh={refresh} />
-      }
-    >
+      }>
       <Container>
-        {feed?.map(item => {
+        {feed?.map((item) => {
           const cores = embaralha(colors);
           return (
             <Item key={item.id}>
@@ -89,24 +97,26 @@ const Home: React.FC = () => {
               <List>
                 {item.matters.map((matter, index) => (
                   <ListItem
-                    onPress={() => navigation.navigate('matterDetail', { id: matter.id, title: matter.title })}
+                    onPress={() =>
+                      navigation.navigate('matterDetail', {
+                        id: matter.id,
+                        title: matter.title,
+                      })
+                    }
                     key={matter.id}
                     style={{
-                      backgroundColor: getColors(cores, index)
-                    }}
-                  >
-                    <MatterText>
-                      {matter.title}
-                    </MatterText>
+                      backgroundColor: getColors(cores, index),
+                    }}>
+                    <MatterText>{matter.title}</MatterText>
                   </ListItem>
                 ))}
               </List>
             </Item>
-          )
+          );
         })}
       </Container>
     </Scroll>
-  )
-}
+  );
+};
 
 export default Home;
