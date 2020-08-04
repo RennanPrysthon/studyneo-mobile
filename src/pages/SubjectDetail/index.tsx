@@ -61,7 +61,6 @@ const SubjectDetail: React.FC = () => {
     <Container>
       <Header>
         <TitleArea>
-
           <Title
             style={{
               textAlign: 'left'

@@ -7,6 +7,8 @@ const { height, width } = Dimensions.get('window');
 export const Container = styled.View`
   flex: 1;
   background-color: #ffffff;
+  align-content: center;
+  justify-content: center;
 `;
 
 export const Header = styled.View`
@@ -48,21 +50,21 @@ export const Divider = styled.View`
 `;
 
 export const List = styled.View`
-  padding: 10px;
-  flex-direction: row;
-  justify-content: center;
-  flex-wrap: wrap;
   background-color: #F6F6F6;
+  padding: 20px;
   flex: 1;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-start;
 `;
 
 export const Button = styled.TouchableOpacity`
-  width: ${width / 3}px;
-  height: ${width / 3}px;
+  width: 43%;
+  height: 33%;
   background-color: #ffffff;
-  padding: 5px;
+
   border-radius: 10px;
-  margin: 5px;
+  margin: 10px;
 
   justify-content: center;
   align-items: center;
