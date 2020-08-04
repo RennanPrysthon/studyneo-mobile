@@ -1,6 +1,8 @@
 import styled from 'styled-components/native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import { Dimensions } from 'react-native';
 
+const { height, width } = Dimensions.get('window');
 
 export const Container = styled.View`
   flex: 1;
@@ -45,12 +47,6 @@ export const Divider = styled.View`
   background-color: #000;
 `;
 
-export const ListContainer = styled.View`
-  flex: 1;
-  background-color: #F6F6F6;
-  align-items: center;
-`;
-
 export const List = styled.View`
   padding: 10px;
   flex-direction: row;
@@ -61,9 +57,8 @@ export const List = styled.View`
 `;
 
 export const Button = styled.TouchableOpacity`
-  width: 100%;
-  max-width: 150px;
-  height: 150px;
+  width: ${width / 3}px;
+  height: ${width / 3}px;
   background-color: #ffffff;
   padding: 5px;
   border-radius: 10px;

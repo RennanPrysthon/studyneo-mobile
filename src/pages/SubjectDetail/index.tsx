@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { useRoute, RouteProp, useNavigation } from '@react-navigation/native';
 import Loading from '../../components/Loading';
@@ -14,7 +14,6 @@ import {
   Title,
   Divider,
   List,
-  ListContainer,
   Button,
   ButtonTitle,
   Icon,
@@ -56,19 +55,7 @@ const SubjectDetail: React.FC = () => {
 
   if (loading) return <Loading />
 
-  const { title, matter_id, overview_counts, questions_counts } = subject;
-
-  function getText(text: string) {
-    var final = '';
-    var count = 0;
-
-    if (text.length > 24) {
-      const parts = text.split(' ');
-
-    }
-
-    return final;
-  }
+  const { title, overview_counts, questions_counts } = subject;
 
   return (
     <Container>
