@@ -24,7 +24,6 @@ const MarkdownText: React.FC<Props> = ({ children, style = { text: '#000' } }) =
       markdownit={markDownInstance}
       rules={{
         image: (node, children, parent, styles) => {
-          console.log(node)
           return <Image
             source={{ uri: node.attributes.src }}
             style={{ width, height: width }}

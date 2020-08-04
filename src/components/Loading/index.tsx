@@ -1,15 +1,10 @@
 import React from 'react';
 
-import { ActivityIndicator } from 'react-native';
+import LottieView from 'lottie-react-native';
 
-const Loading: React.FC = () => {
-  return <ActivityIndicator
-    size={22}
-    color="#00B5E2"
-    style={{
-      flex: 1
-    }}
-  />
-}
+const Loading: React.FC = () => <LottieView source={require('../../animations/loading.json')} style={{
+  margin: 60
+}} autoPlay loop />
+
 
 export default Loading;
