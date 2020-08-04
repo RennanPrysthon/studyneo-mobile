@@ -49,7 +49,6 @@ const Login = () => {
           <Form>
             <Input placeholder="Email" value={email} onChangeText={setEmail} />
             <Input placeholder="Senha" secureTextEntry={true} value={senha} onChangeText={setSenha} />
-            <Esqueci>Esqueci a senha</Esqueci>
             <Submit onPress={handlerLogar} >
               {waitin && <ActivityIndicator size={27} color="#ffffff" />}
               {!waitin &&

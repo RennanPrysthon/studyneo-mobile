@@ -2,7 +2,6 @@ import React from 'react';
 
 import { createStackNavigator } from '@react-navigation/stack'
 
-import BottomTabs from './home.routes';
 import Header from '../components/Header';
 
 import MatterDetail from '../pages/MatterDetail';
@@ -10,6 +9,7 @@ import QuestionList from '../pages/Questions/QuestionList';
 import QuestionDetail from '../pages/Questions/QuestionDetail';
 import SubjectDetail from '../pages/SubjectDetail';
 import Resume from '../pages/Overviews/Resume';
+import Home from '../pages/Home';
 
 const Stack = createStackNavigator();
 
@@ -20,7 +20,7 @@ const AppBottom: React.FC = () => (
     }}
     headerMode="screen"
   >
-    <Stack.Screen name="home" component={BottomTabs} />
+    <Stack.Screen name="home" component={Home} />
     <Stack.Screen name="questionList" component={QuestionList} />
     <Stack.Screen name="questionDetail" component={QuestionDetail} />
     <Stack.Screen name="matterDetail" component={MatterDetail} />
