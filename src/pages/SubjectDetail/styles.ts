@@ -1,8 +1,5 @@
 import styled from 'styled-components/native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import { Dimensions } from 'react-native';
-
-const { height, width } = Dimensions.get('window');
 
 export const Container = styled.View`
   flex: 1;
@@ -23,8 +20,10 @@ export const Title = styled.Text`
   font-size: 20px;
   font-weight: bold;
   margin-right: 5px;
-  flex-wrap: wrap;s
+  flex-wrap: wrap;
+  text-transform: capitalize;
 `;
+
 export const Details = styled.View`
   padding: 5px 10px;
   flex-direction: row;

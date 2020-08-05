@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { Container, Item, Name } from './styles';
+import { Container, Scroll, Item, Name } from './styles';
 import { useRoute, RouteProp, useNavigation } from '@react-navigation/native';
 import api from '../../services/api';
 import { RefreshControl } from 'react-native';
@@ -52,18 +52,21 @@ const MatterDetail: React.FC = () => {
   }, [routes]);
 
   return (
-    <Container
-      refreshControl={
-        <RefreshControl refreshing={loading} onRefresh={refresh} />
-      }
-    >
-      {subjects?.map(item => (
-        <Item key={item.id} onPress={() => navigation.navigate('subjectsDetail', { id: item.id, title: item.title })}>
-          <Name>
-            {item.title}
-          </Name>
-        </Item>
-      ))}
+    <Container>
+
+      <Scroll
+        refreshControl={
+          <RefreshControl refreshing={loading} onRefresh={refresh} />
+        }
+      >
+        {subjects?.map(item => (
+          <Item key={item.id} onPress={() => navigation.navigate('subjectsDetail', { id: item.id, title: item.title })}>
+            <Name>
+              {item.title}
+            </Name>
+          </Item>
+        ))}
+      </Scroll>
     </Container>
   )
 }

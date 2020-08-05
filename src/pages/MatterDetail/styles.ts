@@ -1,9 +1,12 @@
 import styled from 'styled-components/native';
 
-export const Container = styled.ScrollView`
+export const Container = styled.View`
   flex: 1;
-  padding: 10px;
   background-color: #ffffff;
+  padding: 5px 10px;
+`
+
+export const Scroll = styled.ScrollView`
 `;
 
 export const Item = styled.TouchableOpacity`
@@ -19,4 +22,5 @@ export const Item = styled.TouchableOpacity`
 
 export const Name = styled.Text`
   font-size: 16px;
+  text-transform: capitalize;
 `;
