@@ -23,8 +23,10 @@ export const Title = styled.Text`
   font-size: 20px;
   font-weight: bold;
   margin-right: 5px;
-  flex-wrap: wrap;s
+  flex-wrap: wrap;
+  text-transform: uppercase;
 `;
+
 export const Details = styled.View`
   padding: 5px 10px;
   flex-direction: row;

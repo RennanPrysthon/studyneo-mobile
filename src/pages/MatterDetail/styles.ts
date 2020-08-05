@@ -19,4 +19,5 @@ export const Item = styled.TouchableOpacity`
 
 export const Name = styled.Text`
   font-size: 16px;
+  text-transform: capitalize;
 `;
