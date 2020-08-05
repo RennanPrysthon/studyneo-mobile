@@ -5,8 +5,8 @@ import { StackNavigationProp } from '@react-navigation/stack';
 
 import Icon from 'react-native-vector-icons/AntDesign';
 
-import TopLogo from '~/images/assets/topLogo.svg';
-import Menu from '~/images/assets/menu.svg';
+import TopLogo from '~/assets/images/topLogo.svg';
+import Menu from '~/assets/images/menu.svg';
 
 import { Container, Top, Tap, Title } from './styles';
 

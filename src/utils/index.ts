@@ -6,7 +6,7 @@ import * as Constants from './constants';
  * Retorna o array embaralhado
  * @param array array a ser alterado
  */
-const randomize = (array: string[]) => {
+const randomize = (array: any[]) => {
   var lista = array;
   for (let indice = lista.length; indice; indice--) {
     const indiceAleatorio = Math.floor(Math.random() * indice);

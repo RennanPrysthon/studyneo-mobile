@@ -6,14 +6,16 @@ import MarkdownText from '~/components/Markdown';
 import api from '~/api';
 import Loading from '~/components/Loading';
 
-import { Scroll, Container, Texts, Alternatives, AlternativeItem } from './styles';
+import { Scroll, Container, Texts, Alternatives } from './styles';
+import Alternative from '~/components/Alternative';
+import { randomize } from '~/utils';
 
 interface Texto {
   content: string;
   title: string;
 }
 
-interface Alternative {
+interface AlternativeData {
   id: number;
   body: string;
   isCorrect: boolean;
@@ -34,43 +36,21 @@ interface Props {
 
 const QuestionDetail: React.FC<Props> = ({ id }) => {
   const [question, setQuestion] = useState<Question>({} as Question);
-  const [alternatives, setAlternatives] = useState<Alternative[]>([]);
+  const [alternatives, setAlternatives] = useState<AlternativeData[]>([]);
   const [selected, setSelected] = useState<number | null>(null);
   const [end, setEnd] = useState(false);
   const [canShow, setCanShow] = useState(false);
 
   const [loading, setLoading] = useState(true);
 
-  const embaralha = useCallback((array: Alternative[]) => {
-    var lista = array;
-    for (let indice = lista.length; indice; indice--) {
-
-      const indiceAleatorio = Math.floor(Math.random() * indice);
-
-      // guarda de um índice aleatório da lista
-      const elemento = lista[indice - 1];
-
-      lista[indice - 1] = lista[indiceAleatorio];
-
-      lista[indiceAleatorio] = elemento;
-    }
-    return lista
-  }, [question])
-
   useEffect(() => {
-  }, [id])
-
-  useEffect(() => {
-    setCanShow(false);
-    setEnd(false);
-    setSelected(null);
 
     (async () => {
       setLoading(true);
       try {
         const { data } = await api.get(`questions/view/${id}`);
         setQuestion(data);
-        setAlternatives(embaralha(data.alternatives));
+        setAlternatives(randomize(data.alternatives));
         setLoading(false);
       } catch (error) {
         setLoading(false);
@@ -89,14 +69,6 @@ const QuestionDetail: React.FC<Props> = ({ id }) => {
     return layoutMeasurement.height + contentOffset.y >=
       contentSize.height - paddingToBottom;
   };
-
-  const getColor = useCallback(({ id, isCorrect }: Alternative) => {
-    if (!canShow) return { bg: '#ffffff', text: '#333333' };
-
-    if (isCorrect) return { bg: '#52c15b', text: '#ffffff' }
-    if (id === selected && !isCorrect) return { bg: '#d42424', text: '#ffffff' };
-    return { bg: '#ffffff', text: '#333333' };
-  }, [canShow])
 
   if (loading) return <Loading />;
 
@@ -123,20 +95,13 @@ const QuestionDetail: React.FC<Props> = ({ id }) => {
         </MarkdownText>
         <Alternatives>
           {alternatives.map(alt => (
-            <AlternativeItem
+            <Alternative
               key={alt.id}
+              data={alt}
               isSelected={alt.id === selected}
-              bgColor={getColor(alt)}
+              canFinish={canShow && !!selected}
               onPress={() => select(alt.id)}
-            >
-              <MarkdownText
-                style={{
-                  text: getColor(alt).text
-                }}
-              >
-                {alt.body}
-              </MarkdownText>
-            </AlternativeItem>
+            />
           ))}
         </Alternatives>
       </Scroll>
