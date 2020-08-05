@@ -4,9 +4,7 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import Home from '../pages/Home';
-
-import ResumesRoutes from './resumes.routes';
+import Home from '~/screens/Home';
 
 const Bottom = createMaterialBottomTabNavigator();
 
@@ -21,11 +19,6 @@ const BottomTabs: React.FC = () => (
     <Bottom.Screen name="HomeTab" component={Home}
       options={{
         tabBarIcon: ({ color }) => <Icon name="home" size={25} color={color} />
-      }}
-    />
-    <Bottom.Screen name="ResumesTab" component={ResumesRoutes}
-      options={{
-        tabBarIcon: ({ color }) => <Icon name="description" size={25} color={color} />
       }}
     />
   </Bottom.Navigator>

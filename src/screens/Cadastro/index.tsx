@@ -1,9 +1,15 @@
 import React from 'react';
 
-import { ActivityIndicator, TouchableWithoutFeedbackBase, Keyboard, KeyboardAvoidingView } from 'react-native';
+import { ActivityIndicator, KeyboardAvoidingView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { showMessage } from 'react-native-flash-message';
-import api from '../../services/api';
+import CheckBox from '@react-native-community/checkbox';
+
+import { showError, showSuccess } from '~/utils';
+
+import Logo from '~/assets/images/imagotipo-horizontal.svg';
+import Top from '~/assets/images/top2.svg';
+
+import api from '~/api';
 
 import {
   Container,
@@ -22,10 +28,6 @@ import {
   Link
 } from './styles';
 
-import Top from '../../assets/top2.svg';
-import Logo from '../../assets/imagotipo-horizontal.svg';
-import CheckBox from '@react-native-community/checkbox';
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 interface Cadastro {
   email: string;
   password: string;
@@ -46,20 +48,13 @@ const Cadastro: React.FC = () => {
     , [name, email, pass, confirmPass, acceptedTerms]
   );
 
-  function showFlashError(description: string, message: string = 'Erro') {
-    showMessage({
-      message,
-      description,
-      type: 'danger'
-    })
-  }
 
   function showErros() {
-    if (name === '') { showFlashError('Preencha o nome', 'Nome'); return; }
-    if (email === '') { showFlashError('Preencha o email', 'Email'); return; }
-    if (pass === '') { showFlashError('Preencha a senha', 'Senha'); return; }
-    if (pass !== confirmPass) { showFlashError('Senhas não estão iguais', 'Senha'); return; }
-    if (acceptedTerms !== true) { showFlashError('Você precisa aceitar nossos termos', 'Termos'); return; }
+    if (name === '') { showError('Preencha o nome', 'Nome'); return; }
+    if (email === '') { showError('Preencha o email', 'Email'); return; }
+    if (pass === '') { showError('Preencha a senha', 'Senha'); return; }
+    if (pass !== confirmPass) { showError('Senhas não estão iguais', 'Senha'); return; }
+    if (acceptedTerms !== true) { showError('Você precisa aceitar nossos termos', 'Termos'); return; }
   }
 
   const submitForm = () => {
@@ -73,22 +68,13 @@ const Cadastro: React.FC = () => {
       password: pass
     }
     api.post('users', user)
-      .then(response => {
-        console.log(response)
-        showMessage({
-          message: `${name} cadastrado!`,
-          type: "success",
-          duration: 1000
-        });
+      .then(() => {
+
+        showSuccess(`${name} cadastrado!`)
 
         setLoading(false);
         navigation.goBack();
       })
-      .catch(e => {
-        setLoading(false);
-        throw e;
-      })
-
   }
 
   return (

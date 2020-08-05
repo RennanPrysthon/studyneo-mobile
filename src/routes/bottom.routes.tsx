@@ -2,14 +2,14 @@ import React from 'react';
 
 import { createStackNavigator } from '@react-navigation/stack'
 
-import Header from '../components/Header';
+import Header from '~/components/Header';
 
-import MatterDetail from '../pages/MatterDetail';
-import QuestionList from '../pages/Questions/QuestionList';
-import QuestionDetail from '../pages/Questions/QuestionDetail';
-import SubjectDetail from '../pages/SubjectDetail';
-import Resume from '../pages/Overviews/Resume';
-import Home from '../pages/Home';
+import MatterDetail from '~/screens/MatterDetail';
+import QuestionList from '~/screens/QuestionList';
+import QuestionDetail from '~/screens/QuestionDetail';
+import SubjectDetail from '~/screens/SubjectDetail';
+import Resume from '~/screens/Overviews';
+import Home from '~/screens/Home';
 
 const Stack = createStackNavigator();
 

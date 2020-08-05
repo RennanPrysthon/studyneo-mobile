@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { RefreshControl } from 'react-native';
+
+import { useRoute, RouteProp, useNavigation } from '@react-navigation/native';
+import api from '~/api';
 
 import { Container, Item, Name } from './styles';
-import { useRoute, RouteProp, useNavigation } from '@react-navigation/native';
-import api from '../../services/api';
-import { RefreshControl } from 'react-native';
 
 type ParamsList = {
   ID: {

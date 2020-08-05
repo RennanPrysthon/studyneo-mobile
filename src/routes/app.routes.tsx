@@ -2,7 +2,7 @@ import React from 'react';
 
 import { createDrawerNavigator } from '@react-navigation/drawer'
 import AppBottom from './bottom.routes';
-import SideBar from '../components/SideBar';
+import SideBar from '~/components/SideBar';
 
 const Drawer = createDrawerNavigator();
 

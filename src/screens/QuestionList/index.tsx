@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 
-import Controllers from '../../../components/Controllers';
-import api from '../../../services/api';
-
 import { useRoute, RouteProp } from '@react-navigation/native';
+
+import api from '~/api';
+
 import QuestionDetail, { Question } from '../QuestionDetail';
-import Loading from '../../../components/Loading';
+
+import Controllers from '~/components/Controllers';
+import Loading from '~/components/Loading';
 
 type ParamsList = {
   ID: {

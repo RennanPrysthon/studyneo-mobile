@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-import { TouchableOpacity, Text } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 
 interface Props {
   isSelected?: boolean;
@@ -42,8 +42,4 @@ export const AlternativeItem = styled(TouchableOpacity) <Props>`
   border-radius: 10px;
   border-color: ${props => props.isSelected === true ? '#222222' : '#f0f0f0'};
   background-color: ${props => props.bgColor.bg};
-`;
-
-export const Value = styled(Text) <Props>`
-  color: ${props => props.bgColor.text};
 `;

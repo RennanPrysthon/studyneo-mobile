@@ -16,6 +16,6 @@ const getAreas = async () => {
   return response.data;
 };
 
-export default {
+export {
   getAreas,
 };

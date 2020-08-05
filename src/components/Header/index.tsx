@@ -1,13 +1,15 @@
 import React from 'react';
-import { Container, Top, Tap, Title, Center } from './styles';
 
 import { useNavigation, DrawerActions, ParamListBase, useRoute, RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 import Icon from 'react-native-vector-icons/AntDesign';
 
-import TopLogo from '../../assets/topLogo.svg';
-import Menu from '../../assets/menu.svg';
+import TopLogo from '~/images/assets/topLogo.svg';
+import Menu from '~/images/assets/menu.svg';
+
+import { Container, Top, Tap, Title } from './styles';
+
 interface Props {
   navigation?: StackNavigationProp<ParamListBase>;
 }

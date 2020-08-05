@@ -1,14 +1,9 @@
 import React, { useRef } from 'react';
 
-import { Container, Text } from './styles';
-import { Animated, StyleSheet } from 'react-native';
-interface Props {
-  onPress: () => void;
-  canShow?: boolean;
-  fill?: boolean;
-}
+import { Text } from './styles';
+import { Animated } from 'react-native';
 
-const SubmitQuestion: React.FC<Props> = ({ onPress, canShow = false, fill = false }) => {
+const SubmitQuestion: React.FC<{ onPress: () => void, canShow?: boolean, fill?: boolean }> = ({ onPress, canShow = false, fill = false }) => {
 
   const size = useRef(new Animated.Value(0)).current;
 
@@ -104,11 +99,5 @@ const SubmitQuestion: React.FC<Props> = ({ onPress, canShow = false, fill = fals
     </Animated.View>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-
-  }
-})
 
 export default SubmitQuestion;

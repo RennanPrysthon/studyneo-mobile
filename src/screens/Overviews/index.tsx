@@ -2,14 +2,17 @@ import React, { useState } from 'react';
 
 import { Linking, StyleSheet } from 'react-native';
 
+import { useRoute, RouteProp } from '@react-navigation/native';
+
 import Markdown from 'react-native-markdown-display';
 
-import { useRoute, RouteProp, useNavigation } from '@react-navigation/native';
+import api from '~/api';
+
+import { showError } from '~/utils';
+
+import Loading from '~/components/Loading';
 
 import { Container } from './styles';
-import { showMessage } from 'react-native-flash-message';
-import Loading from '../../../components/Loading';
-import api from '../../../services/api';
 
 const style = StyleSheet.create({
   heading1: {
@@ -66,13 +69,9 @@ const Resume: React.FC<Props> = ({ text = '' }) => {
       <Markdown
         style={style}
         onLinkPress={str => {
-          Linking.openURL(str).catch(err => {
-            showMessage({
-              message: "Erro ao abrir pagina web",
-              description: `Endereço ${str} não pode ser encontrado`,
-              type: "danger"
-            })
-          });
+          Linking.openURL(str).catch(err =>
+            showError(`Endereço ${str} não pode ser encontrado`, "Erro ao abrir pagina web")
+          );
           return false;
         }}
       >

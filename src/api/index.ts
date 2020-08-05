@@ -1,11 +1,10 @@
 import axios from 'axios';
-import Storage from '../storage/auth';
-import {showMessage} from 'react-native-flash-message';
+import Storage from '~/services/storage/auth';
+
+import { showError, Constants } from '~/utils';
 
 const api = axios.create({
-  // baseURL: 'http://10.0.2.2:3333/',
-  // baseURL: 'http://67.205.162.29/',
-  baseURL: 'https://api.studyneo.com.br',
+  baseURL: Constants.API_PROD
 });
 
 interface Erro {
@@ -33,21 +32,10 @@ api.interceptors.response.use(
     console.log(error);
     if (error.response && error.response.status === 401) {
       const erros = error.response.data;
-      erros.forEach(({field, message}: Erro) => {
-        showMessage({
-          message: field.charAt(0).toUpperCase() + field.slice(1),
-          description: message,
-          type: 'danger',
-        });
-      });
+      erros.forEach(({ field, message }: Erro) => showError(message, field.charAt(0).toUpperCase() + field.slice(1)));
       return error;
     }
-
-    showMessage({
-      message: 'Erro',
-      description: `${error}`,
-      type: 'danger',
-    });
+    showError(`${error}`);
 
     return error;
   },

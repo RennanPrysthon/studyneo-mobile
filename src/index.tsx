@@ -1,10 +1,12 @@
 import React from 'react';
 import { StatusBar } from 'react-native';
-import Routes from './routes';
+import { NavigationContainer } from '@react-navigation/native';
+
+import FlashMessage from "react-native-flash-message";
 
 import { AuthProvider } from './contexts/auth';
-import { NavigationContainer } from '@react-navigation/native';
-import FlashMessage from "react-native-flash-message";
+
+import Routes from './routes';
 
 const App: React.FC = () => {
   return (

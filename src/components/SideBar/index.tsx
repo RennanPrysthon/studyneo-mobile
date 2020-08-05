@@ -1,9 +1,11 @@
 import React from 'react';
 
-import { Container, Header, UserName, Line, Menu, Route, RouteName, Logout, LogoutText } from './styles';
-import Isotipo from '../../assets/isotipo.svg';
-import AuthContext from '../../contexts/auth';
+import AuthContext from '~/contexts/auth';
+import Isotipo from '~/assets/images/isotipo.svg';
+
 import Loading from '../Loading';
+
+import { Container, Header, UserName, Line, Menu, Route, RouteName, Logout, LogoutText } from './styles';
 
 const SideBar: React.FC = () => {
   const { user, signOut, loading } = React.useContext(AuthContext);
@@ -27,7 +29,7 @@ const SideBar: React.FC = () => {
         </Route>
       </Menu>
       <Logout
-        onPress={() => signOut()}
+        onPress={signOut}
       >
         <LogoutText>
           Sair

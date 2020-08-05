@@ -1,4 +1,14 @@
-import React, {useEffect, useState, useCallback} from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
+
+import { RefreshControl } from 'react-native';
+
+import { useNavigation } from '@react-navigation/native';
+
+import { getAreas } from '~/api/area';
+
+import Loading from '~/components/Loading';
+
+import { randomize } from '~/utils';
 
 import {
   Scroll,
@@ -10,10 +20,6 @@ import {
   MatterText,
 } from './styles';
 
-import {useNavigation} from '@react-navigation/native';
-import {RefreshControl} from 'react-native';
-import Api from '../../api/area';
-import randomize from '../../utils/randomize';
 const colors = [
   '#fbc602',
   '#38b5e2',
@@ -43,13 +49,14 @@ const Home: React.FC = () => {
   const fetchAreasFromApi = useCallback(async () => {
     setLoading(true);
     try {
-      const data = await Api.getAreas();
+      const data = await getAreas();
       setFeed(data);
     } catch (error) {
       console.log(error);
     }
     setLoading(false);
   }, []);
+
   function refresh() {
     fetchAreasFromApi();
   }
@@ -58,12 +65,10 @@ const Home: React.FC = () => {
     fetchAreasFromApi();
   }, [fetchAreasFromApi]);
 
-  const embaralha = useCallback((colorsArray) => {
-    return randomize(colorsArray);
-  }, []);
+  const embaralha = useCallback((colorsArray) => randomize(colorsArray), []);
 
   if (loading) {
-    return null;
+    return <Loading />;
   }
 
   function getColors(cores: string[], index: number) {

@@ -1,5 +1,11 @@
 import React, { useState, useContext } from 'react';
 
+import { TouchableWithoutFeedback, Keyboard, ActivityIndicator } from 'react-native';
+
+import { useNavigation } from '@react-navigation/native';
+
+import AuthContext from '~/contexts/auth';
+
 import {
   Container,
   Scroll,
@@ -15,11 +21,8 @@ import {
   Link,
 } from './styles';
 
-import AuthContext from '../../contexts/auth';
-import { useNavigation, StackActions } from '@react-navigation/native';
-import Top from '../../assets/top1.svg';
-import Logo from '../../assets/logo.svg';
-import { TouchableWithoutFeedback, Keyboard, ActivityIndicator } from 'react-native';
+import Top from '~/assets/images/top1.svg';
+import Logo from '~/assets/images/logo.svg';
 
 const Login = () => {
   const [email, setEmail] = useState('');

@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
 import { useRoute, RouteProp, useNavigation } from '@react-navigation/native';
-import Loading from '../../components/Loading';
-import api from '../../services/api';
+
+import api from '~/api';
+
+import Loading from '~/components/Loading';
 
 import {
   Container,
