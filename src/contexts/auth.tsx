@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 
-import { createContext } from 'react';
-import api from '../services/api';
-
-import AsyncStorage from '@react-native-community/async-storage';
+import {createContext} from 'react';
+import Api from '../api/session';
+import AsyncStorage from '../storage/auth';
 
 interface User {
   token: string;
@@ -19,14 +18,13 @@ interface AuthContextData {
 }
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
-export const AuthProvider: React.FC = ({ children }) => {
+export const AuthProvider: React.FC = ({children}) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-
     async function loadStoragedData() {
-      const storedUser = await AsyncStorage.getItem('@RNAuth:user');
+      const storedUser = await AsyncStorage.getUser();
       if (storedUser) {
         setUser(JSON.parse(storedUser));
       }
@@ -34,36 +32,38 @@ export const AuthProvider: React.FC = ({ children }) => {
     }
 
     loadStoragedData();
-
-  }, [])
+  }, []);
 
   async function signIn(email: string, password: string) {
     try {
-      const { data } = await api.post('auth', { email, password })
+      const data = await Api.login(email, password);
       setUser({
         token: data.token.token,
-        name: data.user.name
+        name: data.user.name,
       });
-      await AsyncStorage.setItem('@RNAuth:user', JSON.stringify({
-        token: data.token.token,
-        user: data.user.name
-      }))
+      await AsyncStorage.setUser(
+        JSON.stringify({
+          token: data.token.token,
+          user: data.user.name,
+        }),
+      );
     } catch (error) {
-
+      await AsyncStorage.clear();
     }
   }
 
   function signOut() {
     AsyncStorage.clear().then(() => {
       setUser(null);
-    })
+    });
   }
 
   return (
-    <AuthContext.Provider value={{ signed: !!user, signIn, user, signOut, loading }}>
+    <AuthContext.Provider
+      value={{signed: !!user, signIn, user, signOut, loading}}>
       {children}
     </AuthContext.Provider>
   );
-}
+};
 
 export default AuthContext;

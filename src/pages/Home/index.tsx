@@ -9,9 +9,19 @@ import {
   ListItem,
   MatterText,
 } from './styles';
-import api from '../../services/api';
+
 import {useNavigation} from '@react-navigation/native';
 import {RefreshControl} from 'react-native';
+import Api from '../../api/area';
+import randomize from '../../utils/randomize';
+const colors = [
+  '#fbc602',
+  '#38b5e2',
+  '#3fbf6f',
+  '#f89300',
+  '#EF4B81',
+  '#BB16A3',
+];
 
 interface Matter {
   id: number;
@@ -25,51 +35,31 @@ interface Area {
   matters: Matter[];
 }
 
-const colors = [
-  '#fbc602',
-  '#38b5e2',
-  '#3fbf6f',
-  '#f89300',
-  '#EF4B81',
-  '#BB16A3',
-];
-
 const Home: React.FC = () => {
   const [feed, setFeed] = useState<Area[]>([] as Area[]);
   const [loading, setLoading] = useState(true);
   const navigation = useNavigation();
 
-  async function refresh() {
+  const fetchAreasFromApi = useCallback(async () => {
     setLoading(true);
     try {
-      const {data} = await api.get<Area[]>('areas');
+      const data = await Api.getAreas();
       setFeed(data);
     } catch (error) {
       console.log(error);
     }
     setLoading(false);
+  }, []);
+  function refresh() {
+    fetchAreasFromApi();
   }
 
   useEffect(() => {
-    (async () => {
-      const {data} = await api.get<Area[]>('areas');
-      setFeed(data);
-      setLoading(false);
-    })();
-  }, []);
+    fetchAreasFromApi();
+  }, [fetchAreasFromApi]);
 
-  const embaralha = useCallback((array: string[]) => {
-    var lista = array;
-    for (let indice = lista.length; indice; indice--) {
-      const indiceAleatorio = Math.floor(Math.random() * indice);
-
-      const elemento = lista[indice - 1];
-
-      lista[indice - 1] = lista[indiceAleatorio];
-
-      lista[indiceAleatorio] = elemento;
-    }
-    return lista;
+  const embaralha = useCallback((colorsArray) => {
+    return randomize(colorsArray);
   }, []);
 
   if (loading) {
