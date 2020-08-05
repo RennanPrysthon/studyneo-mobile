@@ -59,6 +59,11 @@ const QuestionDetail: React.FC<Props> = ({ id }) => {
 
   }, [id])
 
+  useEffect(() => {
+    setCanShow(false);
+    return () => setCanShow(false);
+  }, [])
+
   function select(id: number) {
     if (canShow) return;
     setSelected(id)
