@@ -7,13 +7,12 @@ import AppRoutes from './app.routes';
 import Loading from '~/components/Loading';
 import { ThemeProvider } from 'styled-components/native';
 
-import { Dark, Light } from '~/styles';
-
 import { StatusBar } from 'react-native';
+import ThemeContext from '~/contexts/themes';
 
 const Routes: React.FC = () => {
   const { signed, loading } = useContext(AuthContext);
-  const [theme, setTheme] = useState(Light);
+  const { theme } = useContext(ThemeContext);
 
   if (loading) return <Loading />
 
