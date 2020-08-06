@@ -3,7 +3,7 @@ import styled from 'styled-components/native';
 export const Scroll = styled.ScrollView`
   flex: 1;
   padding: 20px 0;
-  background-color: #fefefe;
+  background-color: ${props => props.theme.background};
 `;
 
 export const Container = styled.View`
@@ -15,7 +15,7 @@ export const AreaTitle = styled.Text`
   font-size: 22px;
   font-weight: 600;
   padding-left: 20px;
-  color: #3d3d3d;
+  color:  ${props => props.theme.texts};
   font-family: 'Rubik-Medium';
 `;
 

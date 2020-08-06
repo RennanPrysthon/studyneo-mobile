@@ -4,17 +4,18 @@ export const Container = styled.View`
   flex: 1;
   padding: 20px;
   align-items: center;
+  background-color: ${props => props.theme.background};
 `;
 
 export const UserName = styled.Text`
-  color: #00B5E2;
+  color: ${props => props.theme.texts};
   font-size: 22px;
 `;
 
 export const Line = styled.View`
   width: 60%;
   height: 2px;
-  background-color: #00B5E2;
+  background-color: ${props => props.theme.primary};
   margin: 20px;
 `;
 
@@ -31,8 +32,12 @@ export const Route = styled.View`
 
 `;
 
-export const RouteName = styled.Text``;
+export const RouteName = styled.Text`
+  color: ${props => props.theme.texts}
+`;
 
 export const Logout = styled.TouchableOpacity``;
 
-export const LogoutText = styled.Text``;
+export const LogoutText = styled.Text`
+  color: ${props => props.theme.texts}
+`;

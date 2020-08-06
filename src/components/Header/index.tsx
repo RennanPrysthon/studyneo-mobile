@@ -3,12 +3,10 @@ import React from 'react';
 import { useNavigation, DrawerActions, ParamListBase, useRoute, RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
-import Icon from 'react-native-vector-icons/AntDesign';
-
 import TopLogo from '~/assets/images/topLogo.svg';
 import Menu from '~/assets/images/menu.svg';
 
-import { Container, Top, Tap, Title } from './styles';
+import { Container, Top, Tap, Title, Icon } from './styles';
 
 interface Props {
   navigation?: StackNavigationProp<ParamListBase>;
@@ -36,7 +34,7 @@ const Header: React.FC<Props> = ({ navigation }) => {
   if (canBack) return (
     <Container>
       <Tap onPress={navigation?.goBack}>
-        <Icon name="left" color="#fff" size={22} />
+        <Icon name="left" size={22} />
       </Tap>
       <Top>
         <Title>
