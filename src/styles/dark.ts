@@ -6,7 +6,8 @@ const Dark: ThemeType = {
   secondary: Colors.YELLOW,
   texts: Colors.WHITE,
   title: Colors.WHITE,
-  background: Colors.DARK
-}
+  background: Colors.DARK,
+  line: Colors.DARK_WHITE,
+};
 
 export default Dark;

@@ -6,7 +6,8 @@ const Light: ThemeType = {
   secondary: Colors.YELLOW,
   texts: Colors.DARK_GREY,
   title: Colors.WHITE,
-  background: Colors.WHITE
+  background: Colors.WHITE,
+  line: Colors.LIGHT_WHITE,
 }
 
 export default Light;

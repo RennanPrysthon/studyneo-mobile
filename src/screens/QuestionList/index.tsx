@@ -7,7 +7,6 @@ import api from '~/api';
 import QuestionDetail, { Question } from '../QuestionDetail';
 
 import Controllers from '~/components/Controllers';
-import Loading from '~/components/Loading';
 
 type ParamsList = {
   ID: {
@@ -41,12 +40,10 @@ const QuestionList: React.FC = () => {
     })();
   }, [page])
 
-  if (loading) return <Loading />;
-
   return (
     <>
       <Controllers page={page} prev={() => setPage(p => p === 1 ? p : p - 1)} next={() => setPage(p => p === lastPage ? p : p + 1)} />
-      {question && <QuestionDetail id={question.id} />}
+      {question && <QuestionDetail id={question.id} refreshing={loading} />}
     </>
   )
 }

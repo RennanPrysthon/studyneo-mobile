@@ -4,7 +4,7 @@ import { RefreshControl } from 'react-native';
 import { useRoute, RouteProp, useNavigation } from '@react-navigation/native';
 import api from '~/api';
 
-import { Container, Item, Name } from './styles';
+import { Container, Scroll, Item, Name } from './styles';
 
 type ParamsList = {
   ID: {
@@ -53,18 +53,21 @@ const MatterDetail: React.FC = () => {
   }, [routes]);
 
   return (
-    <Container
-      refreshControl={
-        <RefreshControl refreshing={loading} onRefresh={refresh} />
-      }
-    >
-      {subjects?.map(item => (
-        <Item key={item.id} onPress={() => navigation.navigate('subjectsDetail', { id: item.id, title: item.title })}>
-          <Name>
-            {item.title}
-          </Name>
-        </Item>
-      ))}
+    <Container>
+
+      <Scroll
+        refreshControl={
+          <RefreshControl refreshing={loading} onRefresh={refresh} />
+        }
+      >
+        {subjects?.map(item => (
+          <Item key={item.id} onPress={() => navigation.navigate('subjectsDetail', { id: item.id, title: item.title })}>
+            <Name>
+              {item.title}
+            </Name>
+          </Item>
+        ))}
+      </Scroll>
     </Container>
   )
 }

@@ -4,4 +4,5 @@ export type ThemeType = {
   title: string,
   texts: string,
   background: string;
+  line: string;
 }

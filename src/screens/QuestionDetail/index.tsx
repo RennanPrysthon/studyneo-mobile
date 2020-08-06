@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import SubmitQuestion from '~/components/SubmitQuestion';
 
@@ -30,11 +30,7 @@ export interface Question {
   alternatives: Alternative[];
 }
 
-interface Props {
-  id: number;
-}
-
-const QuestionDetail: React.FC<Props> = ({ id }) => {
+const QuestionDetail: React.FC<{ id: number, refreshing: boolean }> = ({ id, refreshing }) => {
   const [question, setQuestion] = useState<Question>({} as Question);
   const [alternatives, setAlternatives] = useState<AlternativeData[]>([]);
   const [selected, setSelected] = useState<number | null>(null);
@@ -75,12 +71,12 @@ const QuestionDetail: React.FC<Props> = ({ id }) => {
       contentSize.height - paddingToBottom;
   };
 
-  if (loading) return <Loading />;
+  if (loading || refreshing) return <Loading />;
 
   return (
     <Container>
       <Scroll
-        scrollEventThrottle={400}
+        scrollEventThrottle={16}
         showsVerticalScrollIndicator={false}
         onScroll={({ nativeEvent }) => setEnd(!!isCloseToBottom(nativeEvent) ? true : false)}
         contentInsetAdjustmentBehavior="automatic"
@@ -89,9 +85,9 @@ const QuestionDetail: React.FC<Props> = ({ id }) => {
           {question?.enunciado}
         </MarkdownText>
         <Texts>
-          {question.texts?.map(t => (
-            <MarkdownText key={t.title}>
-              {t.content}
+          {question.texts?.map(({ content }, index) => (
+            <MarkdownText key={index}>
+              {content}
             </MarkdownText>
           ))}
         </Texts>
