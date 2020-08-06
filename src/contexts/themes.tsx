@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 
 import { createContext } from 'react';
-import AsyncStorage from '~/services/storage/auth';
+import AsyncStorage from '~/services/storage/themes';
 import { ThemeType } from '~/styles/type';
 import { Light, Dark } from '~/styles';
-import { set } from 'react-native-reanimated';
 
 interface ThemeContextData {
   toggleTheme: () => void;
@@ -18,9 +17,11 @@ export const ThemesProvider: React.FC = ({ children }) => {
 
   useEffect(() => {
     (async () => {
-      const storedUser = await AsyncStorage.getUser();
-      if (storedUser) {
-        setThemeName(storedUser);
+      const name = await AsyncStorage.getTheme();
+      if (name) {
+        setThemeName(name);
+      } else {
+        AsyncStorage.setTheme('light')
       }
     }
     )();
@@ -30,10 +31,12 @@ export const ThemesProvider: React.FC = ({ children }) => {
   function toggleTheme() {
     if (themeName === 'light') {
       setThemeName('dark')
-      setTheme(Light)
+      setTheme(Dark)
+      AsyncStorage.setTheme('dark')
     } else {
       setThemeName('light')
-      setTheme(Dark)
+      setTheme(Light)
+      AsyncStorage.setTheme('light')
     }
   }
 
