@@ -9,7 +9,7 @@ import QuestionList from '~/screens/QuestionList';
 import QuestionDetail from '~/screens/QuestionDetail';
 import SubjectDetail from '~/screens/SubjectDetail';
 import Resume from '~/screens/Overviews';
-import Home from '~/screens/Home';
+import QuestionsDatabase from '~/screens/QuestionsDatabase';
 
 const Stack = createStackNavigator();
 
@@ -20,7 +20,7 @@ const AppBottom: React.FC = () => (
     }}
     headerMode="screen"
   >
-    <Stack.Screen name="home" component={Home} />
+    <Stack.Screen name="home" component={QuestionsDatabase} />
     <Stack.Screen name="questionList" component={QuestionList} />
     <Stack.Screen name="questionDetail" component={QuestionDetail} />
     <Stack.Screen name="matterDetail" component={MatterDetail} />

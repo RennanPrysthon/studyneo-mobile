@@ -11,7 +11,7 @@ interface Props {
 
 export const Container = styled.View`
   flex: 1;
-  background-color: #ffffff;
+  background-color: ${props => props.theme.background}
 `;
 
 export const Scroll = styled.ScrollView`

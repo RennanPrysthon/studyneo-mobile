@@ -14,12 +14,15 @@ const Routes: React.FC = () => {
   const { signed, loading } = useContext(AuthContext);
   const { theme } = useContext(ThemeContext);
 
-  if (loading) return <Loading />
-
   return (
     <ThemeProvider theme={theme}>
-      <StatusBar backgroundColor={theme.primary} />
-      {signed ? <AppRoutes /> : <AuthRoutes />}
+      {loading && <Loading />}
+      {
+        !loading && <>
+          <StatusBar backgroundColor={theme.primary} />
+          {signed ? <AppRoutes /> : <AuthRoutes />}
+        </>
+      }
     </ThemeProvider>
   );
 }

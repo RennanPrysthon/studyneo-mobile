@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 
 import SubmitQuestion from '~/components/SubmitQuestion';
 
@@ -9,6 +9,7 @@ import Loading from '~/components/Loading';
 import { Scroll, Container, Texts, Alternatives } from './styles';
 import Alternative from '~/components/Alternative';
 import { randomize } from '~/utils';
+import ThemeContext from '~/contexts/themes';
 
 interface Texto {
   content: string;
@@ -38,9 +39,9 @@ const QuestionDetail: React.FC<{ id: number, refreshing: boolean }> = ({ id, ref
   const [canShow, setCanShow] = useState(false);
 
   const [loading, setLoading] = useState(true);
+  const { theme } = useContext(ThemeContext)
 
   useEffect(() => {
-
     (async () => {
       setLoading(true);
       try {
@@ -52,13 +53,19 @@ const QuestionDetail: React.FC<{ id: number, refreshing: boolean }> = ({ id, ref
         setLoading(false);
       }
     })();
-
   }, [id])
 
   useEffect(() => {
     setCanShow(false);
-    return () => setCanShow(false);
-  }, [])
+    setSelected(null);
+    setEnd(false);
+    return () => {
+      console.log('saiu')
+      setCanShow(false);
+      setSelected(null);
+      setEnd(false);
+    };
+  }, [question])
 
   function select(id: number) {
     if (canShow) return;
@@ -81,17 +88,24 @@ const QuestionDetail: React.FC<{ id: number, refreshing: boolean }> = ({ id, ref
         onScroll={({ nativeEvent }) => setEnd(!!isCloseToBottom(nativeEvent) ? true : false)}
         contentInsetAdjustmentBehavior="automatic"
       >
-        <MarkdownText>
+        <MarkdownText
+          style={{ text: theme.texts }}
+        >
           {question?.enunciado}
         </MarkdownText>
         <Texts>
           {question.texts?.map(({ content }, index) => (
-            <MarkdownText key={index}>
+            <MarkdownText
+              key={index}
+              style={{ text: theme.texts }}
+            >
               {content}
             </MarkdownText>
           ))}
         </Texts>
-        <MarkdownText>
+        <MarkdownText
+          style={{ text: theme.texts }}
+        >
           {question.question}
         </MarkdownText>
         <Alternatives>

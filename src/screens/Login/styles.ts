@@ -1,12 +1,11 @@
 import styled from 'styled-components/native';
 
 export const Container = styled.KeyboardAvoidingView`
-  background-color: #fff;
   flex: 1;
 `;
 
 export const Scroll = styled.ScrollView`
-  background-color: #fff;
+  background-color: ${props => props.theme.background};
   flex: 1;
 `;
 
@@ -24,13 +23,14 @@ export const Form = styled.View`
 `;
 
 export const Esqueci = styled.Text`
-  color: #00B5E2;
+  color: ${props => props.theme.primary};
   font-weight: bold;
   margin-bottom: 10px;
 `;
 
 export const Input = styled.TextInput`
-  background-color: #F4F4F4;
+  background-color: ${props => props.theme.inputText};
+  color:${props => props.theme.texts};
   width: 80%;
   margin-bottom: 15px;
   border-radius: 10px;
@@ -38,7 +38,7 @@ export const Input = styled.TextInput`
 `;
 
 export const Submit = styled.TouchableOpacity`
-  background-color: #00B5E2;
+  background-color: ${props => props.theme.primary};
   width: 80%;
   padding: 15px;
   justify-content: center;
@@ -61,6 +61,6 @@ export const HintText = styled.Text`
 `;
 export const HintAction = styled.Text`
   font-weight: bold;
-  color: #00B5E2;
+  color: ${props => props.theme.themeName === 'light' ? props.theme.primary : '#888'};
 `;
 export const Link = styled.TouchableOpacity``;

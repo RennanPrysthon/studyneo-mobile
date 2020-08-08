@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 
 import { Linking, StyleSheet } from 'react-native';
 
@@ -13,16 +13,7 @@ import { showError } from '~/utils';
 import Loading from '~/components/Loading';
 
 import { Container } from './styles';
-
-const style = StyleSheet.create({
-  heading1: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    alignSelf: 'center',
-    fontFamily: 'Rubik-Medium'
-  },
-})
+import ThemeContext from '~/contexts/themes';
 
 interface Props {
   text?: string;
@@ -62,12 +53,48 @@ const Resume: React.FC<Props> = ({ text = '' }) => {
 
   if (loading) return <Loading />
 
+  const { theme } = useContext(ThemeContext);
+
   return (
     <Container
       contentInsetAdjustmentBehavior="automatic"
     >
       <Markdown
-        style={style}
+        style={
+          {
+            text: {
+              color: theme.texts,
+              fontFamily: 'Rubik-Medium',
+            },
+            heading1: {
+              fontSize: 32,
+              fontWeight: 'bold',
+              textAlign: 'center',
+              alignSelf: 'center',
+            },
+            heading2: {
+              fontSize: 24,
+
+            },
+            heading3: {
+              fontSize: 18,
+
+            },
+            heading4: {
+              fontSize: 16,
+
+            },
+            heading5: {
+              fontSize: 13,
+            },
+            heading6: {
+              fontSize: 11,
+            },
+            list_item: {
+              color: theme.texts,
+            }
+          }
+        }
         onLinkPress={str => {
           Linking.openURL(str).catch(err =>
             showError(`Endereço ${str} não pode ser encontrado`, "Erro ao abrir pagina web")

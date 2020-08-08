@@ -7,7 +7,7 @@ interface Props {
 
 export const Container = styled.ScrollView`
   flex: 1;
-  background-color: #fff;
+  background-color: ${props => props.theme.background}
 `;
 
 export const Header = styled.View`
@@ -28,17 +28,17 @@ export const Form = styled.View`
 `;
 
 export const Label = styled.Text`
-  color: #6A6A6A;
+  color: ${props => props.theme.label};
   font-weight: 600;
   margin-bottom: 5px;
 `;
 
 export const Input = styled.TextInput`
-  background-color: #F4F4F4;
+  background-color: ${props => props.theme.inputText};
+  color: ${props => props.theme.texts};
   width: 100%;
   border-radius: 10px;
   padding: 7px;
-
   margin-bottom: 10px;
 `;
 
@@ -47,7 +47,8 @@ export const Footer = styled.View`
 `;
 
 export const Submit = styled(TouchableOpacity) <Props>`
-  background-color: ${({ desabilitado }) => desabilitado === true ? '#00B5E2' : '#a0a0a0'};
+background-color: ${props => props.desabilitado === true ? props.theme.primary : '#999'};
+  background-color: ${props => props.desabilitado === true ? props.theme.primary : (props.theme.themeName === 'dark' ? '#999' : '#A0A0A0')};
   padding: 10px;
   border-radius: 10px;
   align-items: center;
@@ -75,10 +76,11 @@ export const Terms = styled.View`
 `;
 export const TermsText = styled.Text`
   font-size: 12px;
+  color: ${props => props.theme.texts};
 `;
 export const Link = styled.TouchableOpacity``;
 export const TermsLink = styled.Text`
   font-size: 12px;
   font-weight: bold;
-  color: #00B5E2;
+  color: ${props => props.theme.primary}
 `;

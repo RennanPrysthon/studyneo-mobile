@@ -11,7 +11,6 @@ import {
   Scroll,
   Header,
   Form,
-  Esqueci,
   Input,
   Submit,
   SubmitText,
@@ -21,8 +20,10 @@ import {
   Link,
 } from './styles';
 
-import Top from '~/assets/images/top1.svg';
+import TopLight from '~/assets/images/top1_light.svg';
+import TopDark from '~/assets/images/top1_dark.svg';
 import Logo from '~/assets/images/logo.svg';
+import ThemeContext from '~/contexts/themes';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -34,10 +35,17 @@ const Login = () => {
 
   const handlerCadastrar = () => navigation.navigate("SignOn", { title: 'cadastro' })
 
-  const handlerLogar = () => {
+  const handlerLogar = async () => {
     setWaiting(true);
-    signIn(email, senha).then(() => setWaiting(false));
+    try {
+      await signIn(email, senha);
+    } catch (e) {
+      console.log(e)
+    }
+    setWaiting(false)
   };
+
+  const { theme } = useContext(ThemeContext)
 
   return (
     <Container
@@ -46,12 +54,13 @@ const Login = () => {
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <Scroll>
           <Header>
-            <Top width={'100%'} />
+            {theme.themeName === 'light' ? <TopLight width={'100%'} /> : <TopDark width={'100%'} />}
+
             <Logo />
           </Header>
           <Form>
-            <Input placeholder="Email" value={email} onChangeText={setEmail} />
-            <Input placeholder="Senha" secureTextEntry={true} value={senha} onChangeText={setSenha} />
+            <Input placeholder="Email" value={email} onChangeText={setEmail} placeholderTextColor={theme.texts} />
+            <Input placeholder="Senha" secureTextEntry={true} value={senha} onChangeText={setSenha} placeholderTextColor={theme.texts} />
             <Submit onPress={handlerLogar} >
               {waitin && <ActivityIndicator size={27} color="#ffffff" />}
               {!waitin &&

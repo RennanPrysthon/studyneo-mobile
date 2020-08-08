@@ -7,7 +7,7 @@ import CheckBox from '@react-native-community/checkbox';
 import { showError, showSuccess } from '~/utils';
 
 import Logo from '~/assets/images/imagotipo-horizontal.svg';
-import Top from '~/assets/images/top2.svg';
+import TopDark from '~/assets/images/top2_dark.svg';
 
 import api from '~/api';
 
@@ -81,7 +81,7 @@ const Cadastro: React.FC = () => {
     <Container >
       <KeyboardAvoidingView>
         <Header>
-          <Top width={'100%'} />
+          <TopDark width={'100%'} />
           <Logo />
         </Header>
         <Form>

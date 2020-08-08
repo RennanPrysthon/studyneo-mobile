@@ -1,9 +1,12 @@
-import React, { useRef } from 'react';
+import React, { useRef, useContext } from 'react';
 
 import { Text } from './styles';
 import { Animated } from 'react-native';
+import ThemeContext from '~/contexts/themes';
 
 const SubmitQuestion: React.FC<{ onPress: () => void, canShow?: boolean, fill?: boolean }> = ({ onPress, canShow = false, fill = false }) => {
+
+  const { theme } = useContext(ThemeContext);
 
   const size = useRef(new Animated.Value(0)).current;
 
@@ -56,7 +59,7 @@ const SubmitQuestion: React.FC<{ onPress: () => void, canShow?: boolean, fill?: 
         {
           zIndex: 100,
           position: 'absolute',
-          backgroundColor: '#00B5E2',
+          backgroundColor: theme.primary,
           padding: 10,
           justifyContent: 'center',
           alignItems: 'center',

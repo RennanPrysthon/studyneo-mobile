@@ -1,14 +1,14 @@
-import { View, Pressable } from "react-native";
+import { Pressable } from "react-native";
 import styled from "styled-components/native";
 
 interface Props {
-  showBorder?: boolean;
+  borderColor?: string;
   backgroundColor?: string;
 }
 
 export const Container = styled(Pressable) <Props>`
-
-  border-color: ${({ showBorder }) => showBorder === true ? '#000' : '#ddd'};
+  background-color: ${({ backgroundColor }) => backgroundColor};
+  border-color: ${({ borderColor }) => borderColor};
   border-width: 2px;
 
   margin-bottom: 10px;

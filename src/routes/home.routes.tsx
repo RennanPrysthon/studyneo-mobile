@@ -4,19 +4,19 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import Home from '~/screens/Home';
+import QuestionsDatabase from '~/screens/QuestionsDatabase';
 
 const Bottom = createMaterialBottomTabNavigator();
 
 const BottomTabs: React.FC = () => (
   <Bottom.Navigator
-    initialRouteName="HomeTab"
+    initialRouteName="QuestionsDatabaseTab"
     activeColor="#ffffff"
     inactiveColor="#fff8"
     barStyle={{ backgroundColor: '#00B5E2' }}
     labeled={false}
   >
-    <Bottom.Screen name="HomeTab" component={Home}
+    <Bottom.Screen name="QuestionsDatabase" component={QuestionsDatabase}
       options={{
         tabBarIcon: ({ color }) => <Icon name="home" size={25} color={color} />
       }}

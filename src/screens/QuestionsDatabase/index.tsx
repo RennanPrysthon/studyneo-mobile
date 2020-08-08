@@ -41,7 +41,7 @@ interface Area {
   matters: Matter[];
 }
 
-const Home: React.FC = () => {
+const QuestionsDatabase: React.FC = () => {
   const [feed, setFeed] = useState<Area[]>([] as Area[]);
   const [loading, setLoading] = useState(true);
   const navigation = useNavigation();
@@ -114,4 +114,4 @@ const Home: React.FC = () => {
   );
 };
 
-export default Home;
+export default QuestionsDatabase;
