@@ -1,49 +1,16 @@
 import React from 'react';
 
-import { useNavigation, DrawerActions, ParamListBase, useRoute, RouteProp } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
+import { useNavigation, DrawerActions } from '@react-navigation/native';
+import { StackHeaderProps } from '@react-navigation/stack';
 
 import TopLogo from '~/assets/images/topLogo.svg';
 import Menu from '~/assets/images/menu.svg';
 
-import { Container, Top, Tap, Title, Icon } from './styles';
+import { Container, Top, Tap } from './styles';
 
-interface Props {
-  navigation?: StackNavigationProp<ParamListBase>;
-}
-
-type ParamsList = {
-  ID: {
-    id: number;
-    title: string;
-  }
-}
-
-const CHAR_LIMIT = 25;
-
-const Header: React.FC<Props> = ({ navigation }) => {
+const Header: React.FC<{ props: StackHeaderProps }> = ({ props }) => {
   const nav = useNavigation();
-  const routes = useRoute<RouteProp<ParamsList, 'ID'>>();
-  const canBack = React.useMemo(() => navigation?.canGoBack(), [navigation])
-
-  function getText(str: string = '') {
-    if (str.length >= CHAR_LIMIT) return str.substring(0, CHAR_LIMIT) + '...';
-    return str;
-  }
-
-  if (canBack) return (
-    <Container>
-      <Tap onPress={navigation?.goBack}>
-        <Icon name="left" size={22} />
-      </Tap>
-      <Top>
-        <Title>
-          {getText(routes.params?.title)}
-        </Title>
-      </Top>
-    </Container >
-  )
-
+  console.log(props?.scene?.route?.name)
   return (
     <Container>
       <Tap onPress={() => nav.dispatch(DrawerActions.toggleDrawer())}>

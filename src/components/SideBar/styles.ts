@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export const Container = styled.View`
   flex: 1;
@@ -13,7 +14,7 @@ export const UserName = styled.Text`
 `;
 
 export const Line = styled.View`
-  width: 60%;
+  width: 70%;
   height: 2px;
   background-color: ${props => props.theme.primary};
   margin: 20px;
@@ -25,15 +26,22 @@ export const Header = styled.View`
 `;
 
 export const Menu = styled.View`
+  width: 70%;
   flex: 1;
 `;
 
-export const Route = styled.View`
-
+export const Route = styled.TouchableOpacity <{ isActivated: boolean }>`
+  align-items: center;
+  border-color: ${props => props.theme.line};
+  border-width: 2px;
+  padding: 5px;
+  border-radius: 10px;
+  margin-bottom: 10px;
 `;
 
 export const RouteName = styled.Text`
-  color: ${props => props.theme.texts}
+  color: ${props => props.theme.texts};
+
 `;
 
 export const Logout = styled.TouchableOpacity``;
