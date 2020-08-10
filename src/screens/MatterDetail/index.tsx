@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { RefreshControl } from 'react-native';
+import { RefreshControl, FlatList } from 'react-native';
 
 import { useRoute, RouteProp, useNavigation } from '@react-navigation/native';
 import api from '~/api';
@@ -20,54 +20,64 @@ interface Subject {
 }
 
 const MatterDetail: React.FC = () => {
-  const [loading, setLoading] = useState(true);
+
+  const [page, setPage] = useState(1);
+  const [total, setTotal] = useState(0)
+  const [last, setLast] = useState(2);
+
+  const [loading, setLoading] = useState(false);
   const [subjects, setSubjects] = useState<Subject[]>([]);
   const routes = useRoute<RouteProp<ParamsList, 'ID'>>();
   const navigation = useNavigation();
 
   const { id } = routes.params;
 
-  async function refresh() {
+  async function refreshList() {
+    await loadPage(1, true);
+  }
+
+  async function loadPage(pageNumber = page, shouldRefresh = false) {
+    if (pageNumber >= last) return;
+    if (loading) return;
     setLoading(true);
     try {
-      const { data } = await api.get(`subjects?&matter_id=${id}`)
-      setSubjects(data.data)
 
-    } catch (error) {
-      console.log(error.response)
+      const { data } = await api.get(`subjects?&matter_id=${id}&page=${pageNumber}&perPage=15`)
+      console.log({ page: data.page, last: data.lastPage, total: data.total })
+
+      setLoading(false);
+      setLast(data.lastPage)
+      setTotal(data.total);
+      setPage(data.page + 1);
+
+      setSubjects(shouldRefresh ? data.data : [...subjects, ...data.data]);
+
+    } catch (e) {
+      console.log(e)
     }
-    setLoading(false);
   }
 
   useEffect(() => {
-    (async () => {
-      try {
-        const { data } = await api.get(`subjects?&matter_id=${id}&perPage=16`)
-        setSubjects(data.data)
-
-      } catch (error) {
-        console.log(error.response)
-      }
-      setLoading(false);
-    })();
-  }, [routes]);
+    loadPage();
+  }, []);
 
   return (
     <Container>
-
-      <Scroll
-        refreshControl={
-          <RefreshControl refreshing={loading} onRefresh={refresh} />
-        }
-      >
-        {subjects?.map(item => (
-          <Item key={item.id} onPress={() => navigation.navigate('subjectsDetail', { id: item.id, title: item.title })}>
+      <FlatList
+        onRefresh={refreshList}
+        data={subjects}
+        keyExtractor={({ id }) => `${id}`}
+        refreshing={loading}
+        onEndReachedThreshold={0.2}
+        onEndReached={() => loadPage()}
+        renderItem={({ item }) => (
+          <Item onPress={() => navigation.navigate('subjectsDetail', { id: item.id, title: item.title })}>
             <Name>
               {item.title}
             </Name>
           </Item>
-        ))}
-      </Scroll>
+        )}
+      />
     </Container>
   )
 }

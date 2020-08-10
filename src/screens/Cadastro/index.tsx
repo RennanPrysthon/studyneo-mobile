@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import { ActivityIndicator, KeyboardAvoidingView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
@@ -7,7 +7,9 @@ import CheckBox from '@react-native-community/checkbox';
 import { showError, showSuccess } from '~/utils';
 
 import Logo from '~/assets/images/imagotipo-horizontal.svg';
+
 import TopDark from '~/assets/images/top2_dark.svg';
+import TopLight from '~/assets/images/top2_light.svg';
 
 import api from '~/api';
 
@@ -27,6 +29,7 @@ import {
   TermsLink,
   Link
 } from './styles';
+import ThemeContext from '~/contexts/themes';
 
 interface Cadastro {
   email: string;
@@ -77,11 +80,13 @@ const Cadastro: React.FC = () => {
       })
   }
 
+  const { theme } = useContext(ThemeContext);
+
   return (
     <Container >
       <KeyboardAvoidingView>
         <Header>
-          <TopDark width={'100%'} />
+          {theme.themeName === 'light' ? <TopLight width={'100%'} /> : <TopDark width={'100%'} />}
           <Logo />
         </Header>
         <Form>

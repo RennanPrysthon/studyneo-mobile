@@ -10,7 +10,6 @@ import { Container, Top, Tap } from './styles';
 
 const Header: React.FC<{ props: StackHeaderProps }> = ({ props }) => {
   const nav = useNavigation();
-  console.log(props?.scene?.route?.name)
   return (
     <Container>
       <Tap onPress={() => nav.dispatch(DrawerActions.toggleDrawer())}>
