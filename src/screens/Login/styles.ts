@@ -40,7 +40,7 @@ export const Input = styled.TextInput`
 export const Submit = styled.TouchableOpacity`
   background-color: ${props => props.theme.primary};
   width: 80%;
-  padding: 15px;
+  padding: 10px;
   justify-content: center;
   align-items: center;
   border-radius: 15px;
@@ -49,7 +49,7 @@ export const Submit = styled.TouchableOpacity`
 
 export const SubmitText = styled.Text`
   color: #fff;
-  font-size: 20px;
+  font-size: 15px;
 `;
 
 export const Hint = styled.View`

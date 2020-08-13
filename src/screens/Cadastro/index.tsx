@@ -66,8 +66,8 @@ const Cadastro: React.FC = () => {
 
     setLoading(true);
     const user: Cadastro = {
-      email,
-      name,
+      email: email.trim(),
+      name: name.trim(),
       password: pass
     }
     api.post('users', user)
@@ -93,19 +93,19 @@ const Cadastro: React.FC = () => {
           <Label>
             Nome
         </Label>
-          <Input value={name} onChangeText={setName} />
+          <Input value={name} onChangeText={setName} returnKeyLabel="done" />
           <Label>
             Email
         </Label>
-          <Input value={email} onChangeText={setEmail} />
+          <Input value={email} onChangeText={setEmail} autoCapitalize="none" keyboardType="email-address" returnKeyLabel="done" />
           <Label>
             Senha
         </Label>
-          <Input value={pass} onChangeText={setPass} secureTextEntry={true} />
+          <Input value={pass} onChangeText={setPass} secureTextEntry={true} returnKeyLabel="done" />
           <Label>
             Confirmar senha
         </Label>
-          <Input value={confirmPass} onChangeText={setConfirmPass} secureTextEntry={true} />
+          <Input value={confirmPass} onChangeText={setConfirmPass} secureTextEntry={true} returnKeyLabel="done" />
           <Terms>
             <CheckBox
               disabled={false}
