@@ -1,5 +1,5 @@
-import { ThemeType } from './type';
-import { Colors } from '~/styles';
+import {ThemeType} from './type';
+import {Colors} from '~/styles';
 
 const Dark: ThemeType = {
   themeName: 'dark',
@@ -10,7 +10,7 @@ const Dark: ThemeType = {
   background: Colors.DARK,
   line: Colors.DARK_WHITE,
   inputText: Colors.DARK_WHITE,
-  label: Colors.LIGHT_WHITE
+  menuOptionText: Colors.WHITE,
 };
 
 export default Dark;
