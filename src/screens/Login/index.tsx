@@ -115,11 +115,6 @@ const Login = () => {
             <Logo />
           </Header>
           <Form>
-<<<<<<< HEAD
-            <Input placeholder="Email" value={email} onChangeText={setEmail} placeholderTextColor={theme.texts} keyboardType="email-address" returnKeyLabel="done" />
-            <Input placeholder="Senha" secureTextEntry={true} value={senha} onChangeText={setSenha} placeholderTextColor={theme.texts} returnKeyLabel="done" />
-            <Submit onPress={handlerLogar} >
-=======
             <Input
               placeholder="Email"
               value={email}
@@ -143,7 +138,6 @@ const Login = () => {
               </EyeButton>
             </InputGroup>
             <Submit onPress={handlerLogar}>
->>>>>>> 2d8b2cf4d849cd3be7eaf947099db245176ff256
               {waitin && <ActivityIndicator size={27} color="#ffffff" />}
               {!waitin && <SubmitText>Entrar</SubmitText>}
             </Submit>

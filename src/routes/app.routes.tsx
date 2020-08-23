@@ -92,14 +92,6 @@ const Home = () => (
 
 const AppRoutes: React.FC = () => (
   <Drawer.Navigator
-<<<<<<< HEAD
-    initialRouteName="home"
-    drawerContent={({ navigation }) => <SideBar navigation={navigation} />}
-  >
-    {/* <Drawer.Screen name="home" component={Home} /> */}
-    <Drawer.Screen name="questionsDatabase" component={QuestionsDatabaseStack} />
-    {/* <Drawer.Screen name="configuration" component={Configurations} /> */}
-=======
     initialRouteName="questionsDatabase"
     drawerContent={({navigation}) => <SideBar navigation={navigation} />}>
     <Drawer.Screen name="home" component={Home} />
@@ -108,7 +100,6 @@ const AppRoutes: React.FC = () => (
       component={QuestionsDatabaseStack}
     />
     <Drawer.Screen name="configuration" component={Configurations} />
->>>>>>> 2d8b2cf4d849cd3be7eaf947099db245176ff256
   </Drawer.Navigator>
 );
 

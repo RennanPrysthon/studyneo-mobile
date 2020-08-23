@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "899085435916",
+    "firebase_url": "https://studyneo-app.firebaseio.com",
+    "project_id": "studyneo-app",
+    "storage_bucket": "studyneo-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:899085435916:android:31f3f56357db410b209a29",
+        "android_client_info": {
+          "package_name": "com.studyneo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "899085435916-6tqu7fbce6f7id1c4akevf1pm5ctn2e2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.studyneo",
+            "certificate_hash": "4b526e3c4f0ca3ef873d203994b6438cf2dbe69d"
+          }
+        },
+        {
+          "client_id": "899085435916-scpt0i59vgtjoj6f9n991of7kvp41tce.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDIKCoumtwYzi0EO4v-6HOkvcpgBD8io4c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "899085435916-scpt0i59vgtjoj6f9n991of7kvp41tce.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
