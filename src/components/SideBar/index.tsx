@@ -1,21 +1,41 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 import AuthContext from '~/contexts/auth';
 import Isotipo from '~/assets/images/isotipo.svg';
-
+import Icon from 'react-native-vector-icons/Feather';
 import Loading from '../Loading';
 
-import { Container, Header, UserName, Line, Menu, Route, RouteName, Logout, LogoutText } from './styles';
+import {
+  Container,
+  Header,
+  UserName,
+  Line,
+  Menu,
+  MenuOption,
+  MenuOptionLabel,
+  Logout,
+  LogoutText,
+} from './styles';
 import ThemeContext from '~/contexts/themes';
-import { DrawerNavigationHelpers } from '@react-navigation/drawer/lib/typescript/src/types';
+import {DrawerNavigationHelpers} from '@react-navigation/drawer/lib/typescript/src/types';
 
-
-const SideBar: React.FC<{ navigation: DrawerNavigationHelpers }> = ({ navigation }) => {
-  const { user, signOut, loading } = React.useContext(AuthContext);
-  const { toggleTheme } = React.useContext(ThemeContext)
+interface Route {
+  id: number;
+  path: string;
+  name: string;
+  isActivated(name: string): boolean;
+  icon: string;
+}
+const SideBar: React.FC<{
+  navigation: DrawerNavigationHelpers;
+}> = ({navigation}) => {
+  const [activePage, setActivePage] = useState('homeScreen');
+  const {user, signOut, loading} = React.useContext(AuthContext);
+  const {toggleTheme, theme} = React.useContext(ThemeContext);
 
   if (loading) return <Loading />;
 
+<<<<<<< HEAD
   const routes = [
     // {
     //   id: 1,
@@ -23,56 +43,76 @@ const SideBar: React.FC<{ navigation: DrawerNavigationHelpers }> = ({ navigation
     //   name: 'Home',
     //   isActivated: (name: string) => name === 'homeScreen',
     // },
+=======
+  const routes: Route[] = [
+    {
+      id: 1,
+      path: 'questionsDatabase',
+      name: 'Home',
+      isActivated: (name: string) => name === 'homeScreen',
+      icon: 'home',
+    },
+>>>>>>> 2d8b2cf4d849cd3be7eaf947099db245176ff256
     {
       id: 2,
       path: 'questionsDatabase',
-      name: 'Banco de questões',
-      isActivated: (name: string) => name === 'questionsDatabase'
+      name: 'Conteúdos',
+      isActivated: (name: string) => name === 'questionsDatabase',
+      icon: 'book',
     },
-  ]
+    {
+      id: 3,
+      path: 'questionsDatabase',
+      name: 'Resumos',
+      isActivated: (name: string) => name === 'questionsDatabase',
+      icon: 'book-open',
+    },
+    {
+      id: 4,
+      path: 'questionsDatabase',
+      name: 'Perfil',
+      isActivated: (name: string) => name === 'profile',
+      icon: 'user',
+    },
+  ];
 
-  function navigateTo(path: string) {
-    navigation.navigate(path)
+  function navigateTo(route: Route) {
+    setActivePage(route.path);
+    navigation.navigate(route.path);
   }
 
   return (
     <Container>
       <Header>
         <Isotipo />
-        <UserName>
-          {user?.name}
-        </UserName>
+        <UserName>{user?.name}</UserName>
         <Line />
       </Header>
       <Menu>
-        {routes.map(routes => (
-          <Route
-            key={routes.id}
-            onPress={() => navigateTo(routes.path)}
-            isActivated={routes.isActivated()}
-          >
-            <RouteName>
-              {routes.name}
-            </RouteName>
-          </Route>
+        {routes.map((route) => (
+          <MenuOption
+            key={route.id}
+            onPress={() => navigateTo(route)}
+            isActivated={true}>
+            <Icon name={route.icon} size={25} color={theme.menuOptionText} />
+            <MenuOptionLabel>{route.name}</MenuOptionLabel>
+          </MenuOption>
         ))}
       </Menu>
-      <Logout
-        onPress={toggleTheme}
-      >
-        <LogoutText>
-          Mudar tema
-        </LogoutText>
+      <Logout onPress={toggleTheme}>
+        <Icon
+          name={theme.themeName === 'light' ? 'moon' : 'sun'}
+          size={25}
+          color={theme.menuOptionText}
+        />
+        <LogoutText>Mudar tema</LogoutText>
       </Logout>
-      <Logout
-        onPress={signOut}
-      >
-        <LogoutText>
-          Sair
-        </LogoutText>
+      <Logout onPress={signOut}>
+        <Icon name="power" size={25} color={theme.menuOptionText} />
+        <LogoutText>Sair</LogoutText>
       </Logout>
     </Container>
-  )
-}
+  );
+};
 
 export default SideBar;

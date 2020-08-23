@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { createDrawerNavigator } from '@react-navigation/drawer'
-import { createStackNavigator } from '@react-navigation/stack';
+import {createDrawerNavigator} from '@react-navigation/drawer';
+import {createStackNavigator} from '@react-navigation/stack';
 
 import SideBar from '~/components/SideBar';
 import Header from '~/components/Header';
@@ -20,37 +20,47 @@ const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 
 const QuestionsDatabaseStack = () => (
-  <Stack.Navigator
-    headerMode="screen"
-  >
-    <Stack.Screen name="areasList" component={AreasList}
+  <Stack.Navigator headerMode="screen">
+    <Stack.Screen
+      name="areasList"
+      component={AreasList}
       options={{
-        header: (props) => <Header props={props} />
+        header: (props) => <Header props={props} />,
       }}
     />
-    <Stack.Screen name="matterDetail" component={MatterDetail}
+    <Stack.Screen
+      name="matterDetail"
+      component={MatterDetail}
       options={{
-        header: () => <BackHeader />
+        header: () => <BackHeader />,
       }}
     />
-    <Stack.Screen name="subjectsDetail" component={SubjectDetail}
+    <Stack.Screen
+      name="subjectsDetail"
+      component={SubjectDetail}
       options={{
-        header: () => <BackHeader />
+        header: () => <BackHeader />,
       }}
     />
-    <Stack.Screen name="questionList" component={QuestionList}
+    <Stack.Screen
+      name="questionList"
+      component={QuestionList}
       options={{
-        header: () => <BackHeader />
+        header: () => <BackHeader />,
       }}
     />
-    <Stack.Screen name="questionDetail" component={QuestionDetail}
+    <Stack.Screen
+      name="questionDetail"
+      component={QuestionDetail}
       options={{
-        header: () => <BackHeader />
+        header: () => <BackHeader />,
       }}
     />
-    <Stack.Screen name="overviewDetail" component={Resume}
+    <Stack.Screen
+      name="overviewDetail"
+      component={Resume}
       options={{
-        header: () => <BackHeader />
+        header: () => <BackHeader />,
       }}
     />
   </Stack.Navigator>
@@ -58,9 +68,11 @@ const QuestionsDatabaseStack = () => (
 
 const Configurations = () => (
   <Stack.Navigator>
-    <Stack.Screen name="configurationList" component={ConfigurationScreen}
+    <Stack.Screen
+      name="configurationList"
+      component={ConfigurationScreen}
       options={{
-        header: (props) => <Header props={props} />
+        header: (props) => <Header props={props} />,
       }}
     />
   </Stack.Navigator>
@@ -68,9 +80,11 @@ const Configurations = () => (
 
 const Home = () => (
   <Stack.Navigator>
-    <Stack.Screen name="homeScreen" component={HomeScreen}
+    <Stack.Screen
+      name="homeScreen"
+      component={HomeScreen}
       options={{
-        header: (props) => <Header props={props} />
+        header: (props) => <Header props={props} />,
       }}
     />
   </Stack.Navigator>
@@ -78,12 +92,23 @@ const Home = () => (
 
 const AppRoutes: React.FC = () => (
   <Drawer.Navigator
+<<<<<<< HEAD
     initialRouteName="home"
     drawerContent={({ navigation }) => <SideBar navigation={navigation} />}
   >
     {/* <Drawer.Screen name="home" component={Home} /> */}
     <Drawer.Screen name="questionsDatabase" component={QuestionsDatabaseStack} />
     {/* <Drawer.Screen name="configuration" component={Configurations} /> */}
+=======
+    initialRouteName="questionsDatabase"
+    drawerContent={({navigation}) => <SideBar navigation={navigation} />}>
+    <Drawer.Screen name="home" component={Home} />
+    <Drawer.Screen
+      name="questionsDatabase"
+      component={QuestionsDatabaseStack}
+    />
+    <Drawer.Screen name="configuration" component={Configurations} />
+>>>>>>> 2d8b2cf4d849cd3be7eaf947099db245176ff256
   </Drawer.Navigator>
 );
 

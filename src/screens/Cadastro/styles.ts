@@ -1,16 +1,26 @@
 import styled from 'styled-components/native';
 import { TouchableOpacity } from 'react-native';
+import { ThemeType } from '~/styles/type';
 
+interface Theme {
+  theme: ThemeType;
+}
 interface Props {
   desabilitado?: boolean;
 }
 
-export const Container = styled.ScrollView`
+export const Container = styled.View<Theme>`
   flex: 1;
-  background-color: ${props => props.theme.background}
+  align-items: center;
+  background-color: ${(props) => props.theme.background};
 `;
 
-export const Header = styled.View`
+export const Content = styled.ScrollView<Theme>`
+  flex: 1;
+  width: 80%;
+`;
+
+export const Header = styled.View<Theme>`
   align-items: center;
 `;
 
@@ -27,19 +37,25 @@ export const Form = styled.View`
   padding: 20px;
 `;
 
-export const Label = styled.Text`
-  color: ${props => props.theme.label};
+export const Label = styled.Text<Theme>`
+  color: ${(props) => props.theme.texts};
   font-weight: 600;
   margin-bottom: 5px;
+  font-family: 'Rubik-Regular';
 `;
 
-export const Input = styled.TextInput`
-  background-color: ${props => props.theme.inputText};
-  color: ${props => props.theme.texts};
+export const Input = styled.TextInput<Theme>`
+  background-color: ${(props) => {
+    return props.theme.inputText;
+  }};
+  color: ${(props) => props.theme.texts};
   width: 100%;
+  height: 50px;
+  margin-bottom: 15px;
   border-radius: 10px;
-  padding: 7px;
-  margin-bottom: 10px;
+  padding: 10px;
+  font-family: 'Rubik-Regular';
+  font-size: 15px;
 `;
 
 export const Footer = styled.View`
@@ -50,8 +66,11 @@ export const Submit = styled(TouchableOpacity) <Props>`
   background-color: ${props => props.desabilitado === true ? props.theme.primary : "#FFFFFF"};
   background-color: ${props => props.desabilitado === true ? props.theme.primary : (props.theme.themeName === 'dark' ? '#555555' : '#A0A0A0')};
   padding: 10px;
-  border-radius: 10px;
+  justify-content: center;
   align-items: center;
+  border-radius: 15px;
+  margin-bottom: 10px;
+  font-family: 'Rubik-Regular';
 `;
 
 export const SubmitText = styled.Text`
@@ -67,17 +86,19 @@ export const BackButon = styled.TouchableOpacity`
 
 export const BackText = styled.Text`
   font-size: 14px;
-  color: #6A6A6A;
+  color: #6a6a6a;
 `;
 
 export const Terms = styled.View`
   flex-direction: row;
   align-items: center;
+  font-family: 'Rubik-Regular';
 `;
 
 export const TermsText = styled.Text`
   font-size: 12px;
-  color: ${props => props.theme.texts};
+  color: ${ (props) => props.theme.texts};
+  font-family: 'Rubik-Regular';
 `;
 
 export const Link = styled.TouchableOpacity``;
@@ -85,5 +106,7 @@ export const Link = styled.TouchableOpacity``;
 export const TermsLink = styled.Text`
   font-size: 12px;
   font-weight: bold;
-  color: ${props => props.theme.primary}
+  font-family: 'Rubik-Bold';
+
+  color: ${ (props) => props.theme.primary};
 `;

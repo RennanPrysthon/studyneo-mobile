@@ -10,7 +10,8 @@ const Dark: ThemeType = {
   background: Colors.DARK,
   line: Colors.DARK_WHITE,
   inputText: Colors.DARK_WHITE,
-  label: Colors.LIGHT_WHITE
+  menuOptionText: Colors.WHITE,
+  label: Colors.DARK_WHITE
 };
 
 export default Dark;

@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 
-import { createContext } from 'react';
-import { login } from '~/api/session';
+import {createContext} from 'react';
+import Api from '~/api/session';
 import AsyncStorage from '~/services/storage/auth';
 
 interface User {
@@ -18,13 +18,14 @@ interface AuthContextData {
 }
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
-export const AuthProvider: React.FC = ({ children }) => {
+export const AuthProvider: React.FC = ({children}) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function loadStoragedData() {
       const storedUser = await AsyncStorage.getUser();
+      console.log(storedUser);
       if (storedUser) {
         setUser(JSON.parse(storedUser));
       }
@@ -36,7 +37,7 @@ export const AuthProvider: React.FC = ({ children }) => {
 
   async function signIn(email: string, password: string) {
     try {
-      const data = await login(email, password);
+      const data = await Api.login(email, password);
       setUser({
         token: data.token.token,
         name: data.user.name,
@@ -44,7 +45,7 @@ export const AuthProvider: React.FC = ({ children }) => {
       await AsyncStorage.setUser(
         JSON.stringify({
           token: data.token.token,
-          user: data.user.name,
+          name: data.user.name,
         }),
       );
     } catch (error) {
@@ -60,7 +61,7 @@ export const AuthProvider: React.FC = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ signed: !!user, signIn, user, signOut, loading }}>
+      value={{signed: !!user, signIn, user, signOut, loading}}>
       {children}
     </AuthContext.Provider>
   );

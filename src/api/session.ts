@@ -20,3 +20,4 @@ export {
   login,
   signUp,
 };
+export default { login, signUp };
