@@ -47,8 +47,8 @@ export const Footer = styled.View`
 `;
 
 export const Submit = styled(TouchableOpacity) <Props>`
-background-color: ${props => props.desabilitado === true ? props.theme.primary : '#999'};
-  background-color: ${props => props.desabilitado === true ? props.theme.primary : (props.theme.themeName === 'dark' ? '#999' : '#A0A0A0')};
+  background-color: ${props => props.desabilitado === true ? props.theme.primary : "#FFFFFF"};
+  background-color: ${props => props.desabilitado === true ? props.theme.primary : (props.theme.themeName === 'dark' ? '#555555' : '#A0A0A0')};
   padding: 10px;
   border-radius: 10px;
   align-items: center;
@@ -74,11 +74,14 @@ export const Terms = styled.View`
   flex-direction: row;
   align-items: center;
 `;
+
 export const TermsText = styled.Text`
   font-size: 12px;
   color: ${props => props.theme.texts};
 `;
+
 export const Link = styled.TouchableOpacity``;
+
 export const TermsLink = styled.Text`
   font-size: 12px;
   font-weight: bold;

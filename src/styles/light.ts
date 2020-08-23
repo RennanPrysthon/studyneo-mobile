@@ -10,6 +10,7 @@ const Light: ThemeType = {
   background: Colors.WHITE,
   line: Colors.LIGHT_WHITE,
   inputText: Colors.LIGHT_WHITE,
+  label: Colors.DARK_GREY,
 }
 
 export default Light;

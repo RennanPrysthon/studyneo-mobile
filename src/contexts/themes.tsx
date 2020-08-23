@@ -18,25 +18,35 @@ export const ThemesProvider: React.FC = ({ children }) => {
   useEffect(() => {
     (async () => {
       const name = await AsyncStorage.getTheme();
-      if (name) {
+      console.log(name)
+      if (name !== '' && name !== null) {
         setThemeName(name);
       } else {
-        AsyncStorage.setTheme('light')
+        await AsyncStorage.setTheme('light')
       }
     }
     )();
   }, []);
 
 
-  function toggleTheme() {
+  useEffect(() => {
+    if (themeName === 'dark') {
+      setTheme(Dark)
+    } else {
+      setTheme(Light)
+    }
+  }, [themeName])
+
+
+  async function toggleTheme() {
     if (themeName === 'light') {
       setThemeName('dark')
       setTheme(Dark)
-      AsyncStorage.setTheme('dark')
+      await AsyncStorage.setTheme('dark')
     } else {
       setThemeName('light')
       setTheme(Light)
-      AsyncStorage.setTheme('light')
+      await AsyncStorage.setTheme('light')
     }
   }
 

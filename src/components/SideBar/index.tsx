@@ -17,12 +17,12 @@ const SideBar: React.FC<{ navigation: DrawerNavigationHelpers }> = ({ navigation
   if (loading) return <Loading />;
 
   const routes = [
-    {
-      id: 1,
-      path: 'homeScreen',
-      name: 'Home',
-      isActivated: (name: string) => name === 'homeScreen',
-    },
+    // {
+    //   id: 1,
+    //   path: 'homeScreen',
+    //   name: 'Home',
+    //   isActivated: (name: string) => name === 'homeScreen',
+    // },
     {
       id: 2,
       path: 'questionsDatabase',

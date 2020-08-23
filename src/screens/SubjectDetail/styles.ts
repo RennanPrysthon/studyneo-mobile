@@ -18,6 +18,7 @@ export const Header = styled.View`
 export const Title = styled.Text`
   font-size: 20px;
   font-weight: bold;
+  text-transform: capitalize;
   margin-right: 5px;
   flex-wrap: wrap;
   color: ${props => props.theme.texts};

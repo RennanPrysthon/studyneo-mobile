@@ -81,9 +81,9 @@ const AppRoutes: React.FC = () => (
     initialRouteName="home"
     drawerContent={({ navigation }) => <SideBar navigation={navigation} />}
   >
-    <Drawer.Screen name="home" component={Home} />
+    {/* <Drawer.Screen name="home" component={Home} /> */}
     <Drawer.Screen name="questionsDatabase" component={QuestionsDatabaseStack} />
-    <Drawer.Screen name="configuration" component={Configurations} />
+    {/* <Drawer.Screen name="configuration" component={Configurations} /> */}
   </Drawer.Navigator>
 );
 

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useState, useMemo, useContext, useCallback } from 'react';
 
 import { ActivityIndicator, KeyboardAvoidingView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
@@ -11,7 +11,7 @@ import Logo from '~/assets/images/imagotipo-horizontal.svg';
 import TopDark from '~/assets/images/top2_dark.svg';
 import TopLight from '~/assets/images/top2_light.svg';
 
-import api from '~/api';
+import { signUp } from '~/api/session';
 
 import {
   Container,
@@ -31,26 +31,19 @@ import {
 } from './styles';
 import ThemeContext from '~/contexts/themes';
 
-interface Cadastro {
-  email: string;
-  password: string;
-  name: string;
-}
-
 const Cadastro: React.FC = () => {
-  const [name, setName] = React.useState('');
-  const [email, setEmail] = React.useState('');
-  const [pass, setPass] = React.useState('');
-  const [confirmPass, setConfirmPass] = React.useState('');
-  const [acceptedTerms, setAcceptedTerms] = React.useState(false);
-  const [loading, setLoading] = React.useState(false);
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [pass, setPass] = useState('');
+  const [confirmPass, setConfirmPass] = useState('');
+  const [acceptedTerms, setAcceptedTerms] = useState(false);
+  const [loading, setLoading] = useState(false);
   const navigation = useNavigation();
 
-  const able = React.useMemo(
+  const able = useMemo(
     () => acceptedTerms !== false && name !== '' && email !== '' && (pass !== '' && pass === confirmPass)
     , [name, email, pass, confirmPass, acceptedTerms]
   );
-
 
   function showErros() {
     if (name === '') { showError('Preencha o nome', 'Nome'); return; }
@@ -60,24 +53,23 @@ const Cadastro: React.FC = () => {
     if (acceptedTerms !== true) { showError('Você precisa aceitar nossos termos', 'Termos'); return; }
   }
 
-  const submitForm = () => {
+  const submitForm = async () => {
     if (!able) return showErros();
     if (loading) return;
 
     setLoading(true);
-    const user: Cadastro = {
+    const user = {
       email: email.trim(),
       name: name.trim(),
       password: pass
     }
-    api.post('users', user)
-      .then(() => {
-
-        showSuccess(`${name} cadastrado!`)
-
-        setLoading(false);
-        navigation.goBack();
-      })
+    try {
+      const response = await signUp(user);
+    } catch (e) {
+      navigation.goBack();
+    } finally {
+      setLoading(false)
+    }
   }
 
   const { theme } = useContext(ThemeContext);

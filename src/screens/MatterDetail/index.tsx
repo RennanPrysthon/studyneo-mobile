@@ -37,13 +37,12 @@ const MatterDetail: React.FC = () => {
   }
 
   async function loadPage(pageNumber = page, shouldRefresh = false) {
-    if (pageNumber >= last) return;
+    if (pageNumber > last) return;
     if (loading) return;
     setLoading(true);
     try {
 
       const { data } = await api.get(`subjects?&matter_id=${id}&page=${pageNumber}&perPage=15`)
-      console.log({ page: data.page, last: data.lastPage, total: data.total })
 
       setLoading(false);
       setLast(data.lastPage)

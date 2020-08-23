@@ -29,7 +29,6 @@ api.interceptors.response.use(
     return response;
   },
   (error) => {
-    console.log(error);
     if (error.response && error.response.status === 401) {
       const erros = error.response.data;
       erros.forEach(({ field, message }: Erro) => showError(message, field.charAt(0).toUpperCase() + field.slice(1)));

@@ -59,8 +59,8 @@ const Login = () => {
             <Logo />
           </Header>
           <Form>
-            <Input placeholder="Email" value={email} onChangeText={setEmail} placeholderTextColor={theme.texts} />
-            <Input placeholder="Senha" secureTextEntry={true} value={senha} onChangeText={setSenha} placeholderTextColor={theme.texts} />
+            <Input placeholder="Email" value={email} onChangeText={setEmail} placeholderTextColor={theme.texts} keyboardType="email-address" returnKeyLabel="done" />
+            <Input placeholder="Senha" secureTextEntry={true} value={senha} onChangeText={setSenha} placeholderTextColor={theme.texts} returnKeyLabel="done" />
             <Submit onPress={handlerLogar} >
               {waitin && <ActivityIndicator size={27} color="#ffffff" />}
               {!waitin &&

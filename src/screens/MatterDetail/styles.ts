@@ -23,5 +23,6 @@ export const Item = styled.TouchableOpacity`
 
 export const Name = styled.Text`
   font-size: 16px;
-  color: ${props => props.theme.texts}
+  color: ${props => props.theme.texts};
+  text-transform: capitalize;
 `;
