@@ -35,15 +35,6 @@ const SideBar: React.FC<{
 
   if (loading) return <Loading />;
 
-<<<<<<< HEAD
-  const routes = [
-    // {
-    //   id: 1,
-    //   path: 'homeScreen',
-    //   name: 'Home',
-    //   isActivated: (name: string) => name === 'homeScreen',
-    // },
-=======
   const routes: Route[] = [
     {
       id: 1,
@@ -52,7 +43,6 @@ const SideBar: React.FC<{
       isActivated: (name: string) => name === 'homeScreen',
       icon: 'home',
     },
->>>>>>> 2d8b2cf4d849cd3be7eaf947099db245176ff256
     {
       id: 2,
       path: 'questionsDatabase',
