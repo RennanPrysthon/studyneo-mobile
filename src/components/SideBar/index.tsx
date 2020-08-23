@@ -38,7 +38,7 @@ const SideBar: React.FC<{
   const routes: Route[] = [
     {
       id: 1,
-      path: 'homeScreen',
+      path: 'questionsDatabase',
       name: 'Home',
       isActivated: (name: string) => name === 'homeScreen',
       icon: 'home',
@@ -59,7 +59,7 @@ const SideBar: React.FC<{
     },
     {
       id: 4,
-      path: 'profile',
+      path: 'questionsDatabase',
       name: 'Perfil',
       isActivated: (name: string) => name === 'profile',
       icon: 'user',
