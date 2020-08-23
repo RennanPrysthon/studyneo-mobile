@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 
 import {createContext} from 'react';
-import {login} from '~/api/session';
+import Api from '~/api/session';
 import AsyncStorage from '~/services/storage/auth';
 
 interface User {
@@ -37,7 +37,7 @@ export const AuthProvider: React.FC = ({children}) => {
 
   async function signIn(email: string, password: string) {
     try {
-      const data = await login(email, password);
+      const data = await Api.login(email, password);
       setUser({
         token: data.token.token,
         name: data.user.name,

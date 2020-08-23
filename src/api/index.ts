@@ -1,10 +1,10 @@
 import axios from 'axios';
 import Storage from '~/services/storage/auth';
 
-import { showError, Constants } from '~/utils';
+import {showError, Constants} from '~/utils';
 
 const api = axios.create({
-  baseURL: Constants.API_PROD
+  baseURL: Constants.API_PROD,
 });
 
 interface Erro {
@@ -29,15 +29,15 @@ api.interceptors.response.use(
     return response;
   },
   (error) => {
-    console.log(error);
     if (error.response && error.response.status === 401) {
       const erros = error.response.data;
-      erros.forEach(({ field, message }: Erro) => showError(message, field.charAt(0).toUpperCase() + field.slice(1)));
-      return error;
+      erros.forEach(({field, message}: Erro) =>
+        showError(message, field.charAt(0).toUpperCase() + field.slice(1)),
+      );
     }
-    showError(`${error}`);
+    //showError(`${error}`);
 
-    return error;
+    throw error;
   },
 );
 

@@ -87,11 +87,12 @@ const Login = () => {
     if (!validateForm()) {
       return;
     }
-
+    if (waitin) return;
     setWaiting(true);
 
     try {
-      await signIn(email, senha);
+      const response = await signIn(email, senha);
+      console.log(response);
     } catch (e) {
       console.log(e);
     }
@@ -130,7 +131,7 @@ const Login = () => {
               />
               <EyeButton onPress={toggleSecure}>
                 <Icon
-                  name={secure ? 'eye' : 'eye-off'}
+                  name={secure ? 'eye-off' : 'eye'}
                   size={20}
                   color={theme.texts}
                 />

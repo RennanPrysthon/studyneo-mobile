@@ -1,10 +1,10 @@
-import React, { useContext } from 'react';
+import React, {useContext} from 'react';
 
-import { ActivityIndicator, KeyboardAvoidingView } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import {ActivityIndicator, KeyboardAvoidingView} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 import CheckBox from '@react-native-community/checkbox';
 
-import { showError, showSuccess } from '~/utils';
+import {showError, showSuccess} from '~/utils';
 
 import Logo from '~/assets/images/imagotipo-horizontal.svg';
 
@@ -27,16 +27,12 @@ import {
   Terms,
   TermsText,
   TermsLink,
-  Link
+  Link,
+  Content,
 } from './styles';
 import ThemeContext from '~/contexts/themes';
 
-interface Cadastro {
-  email: string;
-  password: string;
-  name: string;
-}
-
+import Api from '~/api/session';
 const Cadastro: React.FC = () => {
   const [name, setName] = React.useState('');
   const [email, setEmail] = React.useState('');
@@ -47,110 +43,132 @@ const Cadastro: React.FC = () => {
   const navigation = useNavigation();
 
   const able = React.useMemo(
-    () => acceptedTerms !== false && name !== '' && email !== '' && (pass !== '' && pass === confirmPass)
-    , [name, email, pass, confirmPass, acceptedTerms]
+    () =>
+      acceptedTerms !== false &&
+      name !== '' &&
+      email !== '' &&
+      pass !== '' &&
+      pass === confirmPass,
+    [name, email, pass, confirmPass, acceptedTerms],
   );
 
-
   function showErros() {
-    if (name === '') { showError('Preencha o nome', 'Nome'); return; }
-    if (email === '') { showError('Preencha o email', 'Email'); return; }
-    if (pass === '') { showError('Preencha a senha', 'Senha'); return; }
-    if (pass !== confirmPass) { showError('Senhas não estão iguais', 'Senha'); return; }
-    if (acceptedTerms !== true) { showError('Você precisa aceitar nossos termos', 'Termos'); return; }
+    if (name === '') {
+      showError('Preencha o nome', 'Nome');
+      return;
+    }
+    if (email === '') {
+      showError('Preencha o email', 'Email');
+      return;
+    }
+    if (pass === '') {
+      showError('Preencha a senha', 'Senha');
+      return;
+    }
+    if (pass !== confirmPass) {
+      showError('Senhas não estão iguais', 'Senha');
+      return;
+    }
+    if (acceptedTerms !== true) {
+      showError('Você precisa aceitar nossos termos', 'Termos');
+      return;
+    }
   }
 
-  const submitForm = () => {
+  const submitForm = async () => {
     if (!able) return showErros();
     if (loading) return;
 
     setLoading(true);
-    const user: Cadastro = {
+    const user = {
       email: email.trim(),
       name: name.trim(),
-      password: pass
-    }
-    api.post('users', user)
-      .then(() => {
+      password: pass,
+    };
 
-        showSuccess(`${name} cadastrado!`)
+    try {
+      await Api.signUp(user);
+      navigation.goBack();
+    } catch (err) {}
+    setLoading(false);
+  };
 
-        setLoading(false);
-        navigation.goBack();
-      })
-  }
-
-  const { theme } = useContext(ThemeContext);
+  const {theme} = useContext(ThemeContext);
 
   return (
-    <Container >
+    <Container>
       <KeyboardAvoidingView>
         <Header>
-          {theme.themeName === 'light' ? <TopLight width={'100%'} /> : <TopDark width={'100%'} />}
+          {theme.themeName === 'light' ? (
+            <TopLight width={'100%'} />
+          ) : (
+            <TopDark width={'100%'} />
+          )}
           <Logo />
         </Header>
-        <Form>
-          <Label>
-            Nome
-        </Label>
-          <Input value={name} onChangeText={setName} returnKeyLabel="done" />
-          <Label>
-            Email
-        </Label>
-          <Input value={email} onChangeText={setEmail} autoCapitalize="none" keyboardType="email-address" returnKeyLabel="done" />
-          <Label>
-            Senha
-        </Label>
-          <Input value={pass} onChangeText={setPass} secureTextEntry={true} returnKeyLabel="done" />
-          <Label>
-            Confirmar senha
-        </Label>
-          <Input value={confirmPass} onChangeText={setConfirmPass} secureTextEntry={true} returnKeyLabel="done" />
-          <Terms>
-            <CheckBox
-              disabled={false}
-              value={acceptedTerms}
-              onValueChange={(term: boolean) => setAcceptedTerms(term)}
+        <Content>
+          <Form>
+            <Label>Nome</Label>
+            <Input value={name} onChangeText={setName} returnKeyLabel="done" />
+            <Label>Email</Label>
+            <Input
+              value={email}
+              onChangeText={setEmail}
+              autoCapitalize="none"
+              keyboardType="email-address"
+              returnKeyLabel="done"
             />
-            <TermsText>
-              Aceitar nossos{' '}
-            </TermsText>
-            <Link
-              onPress={() => navigation.navigate('termos', { title: 'Termos de uso' })}
-            >
-              <TermsLink>
-                termos de uso
-            </TermsLink>
-            </Link>
-            <TermsText>
-              {' '}e{' '}
-            </TermsText>
-            <Link
-              onPress={() => navigation.navigate('politica', { title: 'Politica de privacidade' })}
-            >
-              <TermsLink>
-                politica de privacidade
-            </TermsLink>
-            </Link>
-          </Terms>
-        </Form>
-        <Footer>
-          <Submit onPress={submitForm} desabilitado={able}>
-            {loading && <ActivityIndicator size={27} color="#ffffff" />}
-            {!loading &&
-              <SubmitText>
-                Cadastrar
-          </SubmitText>}
-          </Submit>
-          <BackButon onPress={() => navigation.goBack()}>
-            <BackText>
-              Voltar
-            </BackText>
-          </BackButon>
-        </Footer>
+            <Label>Senha</Label>
+            <Input
+              value={pass}
+              onChangeText={setPass}
+              secureTextEntry={true}
+              returnKeyLabel="done"
+            />
+            <Label>Confirmar senha</Label>
+            <Input
+              value={confirmPass}
+              onChangeText={setConfirmPass}
+              secureTextEntry={true}
+              returnKeyLabel="done"
+            />
+            <Terms>
+              <CheckBox
+                disabled={false}
+                value={acceptedTerms}
+                onValueChange={(term: boolean) => setAcceptedTerms(term)}
+              />
+              <TermsText>Aceitar nossos </TermsText>
+              <Link
+                onPress={() =>
+                  navigation.navigate('termos', {title: 'Termos de uso'})
+                }>
+                <TermsLink>termos de uso</TermsLink>
+              </Link>
+              <TermsText> e </TermsText>
+              <Link
+                onPress={() =>
+                  navigation.navigate('politica', {
+                    title: 'Politica de privacidade',
+                  })
+                }>
+                <TermsLink>politica de privacidade</TermsLink>
+              </Link>
+            </Terms>
+          </Form>
+          <Footer>
+            <Submit onPress={submitForm} desabilitado={able}>
+              {loading && <ActivityIndicator size={27} color="#ffffff" />}
+              {!loading && <SubmitText>Cadastrar</SubmitText>}
+            </Submit>
+            <BackButon onPress={() => navigation.goBack()}>
+              <BackText>Voltar</BackText>
+            </BackButon>
+          </Footer>
+        </Content>
       </KeyboardAvoidingView>
-    </Container >
-  )
-}
+    </Container>
+  );
+};
 
 export default Cadastro;
