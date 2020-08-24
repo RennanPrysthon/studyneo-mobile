@@ -92,12 +92,14 @@ const Home = () => (
 
 const AppRoutes: React.FC = () => (
   <Drawer.Navigator
-    initialRouteName="home"
-    drawerContent={({ navigation }) => <SideBar navigation={navigation} />}
-  >
-    {/* <Drawer.Screen name="home" component={Home} /> */}
-    <Drawer.Screen name="questionsDatabase" component={QuestionsDatabaseStack} />
-    {/* <Drawer.Screen name="configuration" component={Configurations} /> */}
+    initialRouteName="questionsDatabase"
+    drawerContent={({ navigation }) => <SideBar navigation={navigation} />}>
+    <Drawer.Screen name="home" component={Home} />
+    <Drawer.Screen
+      name="questionsDatabase"
+      component={QuestionsDatabaseStack}
+    />
+    <Drawer.Screen name="configuration" component={Configurations} />
   </Drawer.Navigator>
 );
 

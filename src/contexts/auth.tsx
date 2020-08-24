@@ -15,6 +15,7 @@ interface AuthContextData {
   signIn(email: string, password: string): Promise<void>;
   signOut(): void;
   loading: boolean;
+  googleSignIn(idToken: string): void;
 }
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
@@ -58,10 +59,22 @@ export const AuthProvider: React.FC = ({children}) => {
       setUser(null);
     });
   }
-
+  async function googleSignIn(idToken: string) {
+    try {
+      const data = await Api.googleSignIn(idToken);
+      await AsyncStorage.setUser(
+        JSON.stringify({
+          token: data.token.token,
+          name: data.user.name,
+        }),
+      );
+    } catch (err) {
+      await AsyncStorage.clear();
+    }
+  }
   return (
     <AuthContext.Provider
-      value={{signed: !!user, signIn, user, signOut, loading}}>
+      value={{signed: !!user, signIn, user, signOut, loading, googleSignIn}}>
       {children}
     </AuthContext.Provider>
   );

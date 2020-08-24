@@ -43,7 +43,23 @@ export const Input = styled.TextInput<Theme>`
   font-family: 'Rubik-Regular';
   font-size: 15px;
 `;
-
+export const GoogleButton = styled.TouchableOpacity<Theme>`
+  padding: 10px;
+  align-items: center;
+  justify-content: space-between;
+  background-color: ${(props) => {
+    return props.theme.inputText;
+  }};
+  color: ${(props) => props.theme.texts};
+  border-radius: 10px;
+  flex-direction: row;
+  margin-bottom: 10px;
+`;
+export const GoogleButtonText = styled.Text<Theme>`
+  font-family: 'Rubik-Regular';
+  color: ${(props) => props.theme.texts};
+  margin-left: 15px;
+`;
 export const InputGroup = styled.View<Theme>`
   flex-direction: row;
   width: 80%;

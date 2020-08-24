@@ -18,7 +18,7 @@ export const ThemesProvider: React.FC = ({ children }) => {
   useEffect(() => {
     (async () => {
       const name = await AsyncStorage.getTheme();
-      console.log(name)
+      console.log(name);
       if (name !== '' && name !== null) {
         setThemeName(name);
       } else {
