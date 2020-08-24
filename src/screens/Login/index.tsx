@@ -1,6 +1,6 @@
 import React, {useState, useContext} from 'react';
 import {showMessage} from 'react-native-flash-message';
-
+import {GoogleSignin, statusCodes} from '@react-native-community/google-signin';
 import {
   TouchableWithoutFeedback,
   Keyboard,
@@ -10,8 +10,7 @@ import {
 import {useNavigation} from '@react-navigation/native';
 
 import AuthContext from '~/contexts/auth';
-import Icon from 'react-native-vector-icons/Feather';
-
+import Feather from 'react-native-vector-icons/Feather';
 import {
   Container,
   Scroll,
@@ -27,12 +26,15 @@ import {
   HintText,
   HintAction,
   Link,
+  GoogleButton,
+  GoogleButtonText,
 } from './styles';
 
 import TopLight from '~/assets/images/top1_light.svg';
 import TopDark from '~/assets/images/top1_dark.svg';
 import Logo from '~/assets/images/logo.svg';
 import ThemeContext from '~/contexts/themes';
+import Google from '~/assets/images/google.svg';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -98,7 +100,23 @@ const Login = () => {
     }
     setWaiting(false);
   };
-
+  async function handleGoogleLogin() {
+    try {
+      await GoogleSignin.hasPlayServices();
+      const userInfo = await GoogleSignin.signIn();
+      console.log(userInfo);
+    } catch (error) {
+      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+        console.log('usuario cancelou');
+      } else if (error.code === statusCodes.IN_PROGRESS) {
+        console.log('ja esta rodando');
+      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+        console.log('impossivel');
+      } else {
+        console.log(error.code);
+      }
+    }
+  }
   const {theme} = useContext(ThemeContext);
 
   return (
@@ -130,7 +148,7 @@ const Login = () => {
                 placeholderTextColor={theme.texts}
               />
               <EyeButton onPress={toggleSecure}>
-                <Icon
+                <Feather
                   name={secure ? 'eye-off' : 'eye'}
                   size={20}
                   color={theme.texts}
@@ -141,6 +159,10 @@ const Login = () => {
               {waitin && <ActivityIndicator size={27} color="#ffffff" />}
               {!waitin && <SubmitText>Entrar</SubmitText>}
             </Submit>
+            <GoogleButton activeOpacity={0.5} onPress={handleGoogleLogin}>
+              <Google width={27} height={27} />
+              <GoogleButtonText>Entrar com Google</GoogleButtonText>
+            </GoogleButton>
             <Hint>
               <HintText>Não tem conta?</HintText>
               <Link onPress={handlerCadastrar}>

@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "899085435916-hrg89mvok2l9p1h3aucrrar4oq3uds4v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.studyneo",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
           "client_id": "899085435916-6tqu7fbce6f7id1c4akevf1pm5ctn2e2.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
