@@ -1,7 +1,7 @@
 import React from 'react';
 
-import {createDrawerNavigator} from '@react-navigation/drawer';
-import {createStackNavigator} from '@react-navigation/stack';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createStackNavigator } from '@react-navigation/stack';
 
 import SideBar from '~/components/SideBar';
 import Header from '~/components/Header';
@@ -92,23 +92,12 @@ const Home = () => (
 
 const AppRoutes: React.FC = () => (
   <Drawer.Navigator
-<<<<<<< HEAD
     initialRouteName="home"
     drawerContent={({ navigation }) => <SideBar navigation={navigation} />}
   >
     {/* <Drawer.Screen name="home" component={Home} /> */}
     <Drawer.Screen name="questionsDatabase" component={QuestionsDatabaseStack} />
     {/* <Drawer.Screen name="configuration" component={Configurations} /> */}
-=======
-    initialRouteName="questionsDatabase"
-    drawerContent={({navigation}) => <SideBar navigation={navigation} />}>
-    <Drawer.Screen name="home" component={Home} />
-    <Drawer.Screen
-      name="questionsDatabase"
-      component={QuestionsDatabaseStack}
-    />
-    <Drawer.Screen name="configuration" component={Configurations} />
->>>>>>> 2d8b2cf4d849cd3be7eaf947099db245176ff256
   </Drawer.Navigator>
 );
 
