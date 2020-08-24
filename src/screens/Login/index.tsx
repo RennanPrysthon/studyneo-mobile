@@ -1,5 +1,5 @@
-import React, {useState, useContext} from 'react';
-import {showMessage} from 'react-native-flash-message';
+import React, { useState, useContext } from 'react';
+import { showMessage } from 'react-native-flash-message';
 
 import {
   TouchableWithoutFeedback,
@@ -7,7 +7,7 @@ import {
   ActivityIndicator,
 } from 'react-native';
 
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
 import AuthContext from '~/contexts/auth';
 import Icon from 'react-native-vector-icons/Feather';
@@ -39,11 +39,11 @@ const Login = () => {
   const [senha, setSenha] = useState('');
   const [waitin, setWaiting] = useState(false);
   const [secure, setSecure] = useState(true);
-  const {signIn} = useContext(AuthContext);
+  const { signIn } = useContext(AuthContext);
   const navigation = useNavigation();
 
   const handlerCadastrar = () =>
-    navigation.navigate('SignOn', {title: 'cadastro'});
+    navigation.navigate('SignOn', { title: 'cadastro' });
 
   const toggleSecure = () => setSecure(!secure);
   const validateForm = () => {
@@ -99,7 +99,7 @@ const Login = () => {
     setWaiting(false);
   };
 
-  const {theme} = useContext(ThemeContext);
+  const { theme } = useContext(ThemeContext);
 
   return (
     <Container behavior="height">
@@ -109,17 +109,12 @@ const Login = () => {
             {theme.themeName === 'light' ? (
               <TopLight width={'100%'} />
             ) : (
-              <TopDark width={'100%'} />
-            )}
+                <TopDark width={'100%'} />
+              )}
 
             <Logo />
           </Header>
           <Form>
-<<<<<<< HEAD
-            <Input placeholder="Email" value={email} onChangeText={setEmail} placeholderTextColor={theme.texts} keyboardType="email-address" returnKeyLabel="done" />
-            <Input placeholder="Senha" secureTextEntry={true} value={senha} onChangeText={setSenha} placeholderTextColor={theme.texts} returnKeyLabel="done" />
-            <Submit onPress={handlerLogar} >
-=======
             <Input
               placeholder="Email"
               value={email}
@@ -143,7 +138,6 @@ const Login = () => {
               </EyeButton>
             </InputGroup>
             <Submit onPress={handlerLogar}>
->>>>>>> 2d8b2cf4d849cd3be7eaf947099db245176ff256
               {waitin && <ActivityIndicator size={27} color="#ffffff" />}
               {!waitin && <SubmitText>Entrar</SubmitText>}
             </Submit>
