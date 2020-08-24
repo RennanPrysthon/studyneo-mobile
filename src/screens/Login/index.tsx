@@ -35,13 +35,14 @@ import TopDark from '~/assets/images/top1_dark.svg';
 import Logo from '~/assets/images/logo.svg';
 import ThemeContext from '~/contexts/themes';
 import Google from '~/assets/images/google.svg';
+import {showError} from '~/utils';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [waitin, setWaiting] = useState(false);
   const [secure, setSecure] = useState(true);
-  const {signIn} = useContext(AuthContext);
+  const {signIn, googleSignIn} = useContext(AuthContext);
   const navigation = useNavigation();
 
   const handlerCadastrar = () =>
@@ -93,27 +94,50 @@ const Login = () => {
     setWaiting(true);
 
     try {
-      const response = await signIn(email, senha);
-      console.log(response);
+      await signIn(email, senha);
     } catch (e) {
       console.log(e);
+      setWaiting(false);
     }
-    setWaiting(false);
   };
   async function handleGoogleLogin() {
     try {
       await GoogleSignin.hasPlayServices();
       const userInfo = await GoogleSignin.signIn();
-      console.log(userInfo);
+      if (userInfo.idToken) {
+        await googleSignIn(userInfo.idToken);
+      } else {
+        showMessage({
+          message: 'Erro inesperado!',
+          description: 'Ops, ocorreu algum erro inesperado ao fazer Login.',
+          type: 'danger',
+        });
+      }
     } catch (error) {
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-        console.log('usuario cancelou');
+        showMessage({
+          message: 'Ação cancelada!',
+          description: 'Login com o Google cancelado.',
+          type: 'warning',
+        });
       } else if (error.code === statusCodes.IN_PROGRESS) {
-        console.log('ja esta rodando');
+        showMessage({
+          message: 'Aguarde!',
+          description: 'Login com Google em andamento.',
+          type: 'warning',
+        });
       } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-        console.log('impossivel');
+        showMessage({
+          message: 'Erro ao realizar login!',
+          description: 'Impossível completar a ação.',
+          type: 'danger',
+        });
       } else {
-        console.log(error.code);
+        showMessage({
+          message: 'Erro inesperado!',
+          description: 'Ops, ocorreu algum erro inesperado.',
+          type: 'danger',
+        });
       }
     }
   }
