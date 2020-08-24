@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 
 import AuthContext from '~/contexts/auth';
 import Isotipo from '~/assets/images/isotipo.svg';
@@ -17,7 +17,7 @@ import {
   LogoutText,
 } from './styles';
 import ThemeContext from '~/contexts/themes';
-import {DrawerNavigationHelpers} from '@react-navigation/drawer/lib/typescript/src/types';
+import { DrawerNavigationHelpers } from '@react-navigation/drawer/lib/typescript/src/types';
 
 interface Route {
   id: number;
@@ -28,22 +28,13 @@ interface Route {
 }
 const SideBar: React.FC<{
   navigation: DrawerNavigationHelpers;
-}> = ({navigation}) => {
+}> = ({ navigation }) => {
   const [activePage, setActivePage] = useState('homeScreen');
-  const {user, signOut, loading} = React.useContext(AuthContext);
-  const {toggleTheme, theme} = React.useContext(ThemeContext);
+  const { user, signOut, loading } = React.useContext(AuthContext);
+  const { toggleTheme, theme } = React.useContext(ThemeContext);
 
   if (loading) return <Loading />;
 
-<<<<<<< HEAD
-  const routes = [
-    // {
-    //   id: 1,
-    //   path: 'homeScreen',
-    //   name: 'Home',
-    //   isActivated: (name: string) => name === 'homeScreen',
-    // },
-=======
   const routes: Route[] = [
     {
       id: 1,
@@ -52,7 +43,6 @@ const SideBar: React.FC<{
       isActivated: (name: string) => name === 'homeScreen',
       icon: 'home',
     },
->>>>>>> 2d8b2cf4d849cd3be7eaf947099db245176ff256
     {
       id: 2,
       path: 'questionsDatabase',
