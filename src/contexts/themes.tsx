@@ -1,9 +1,9 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 
-import {createContext} from 'react';
+import { createContext } from 'react';
 import AsyncStorage from '~/services/storage/themes';
-import {ThemeType} from '~/styles/type';
-import {Light, Dark} from '~/styles';
+import { ThemeType } from '~/styles/type';
+import { Light, Dark } from '~/styles';
 
 interface ThemeContextData {
   toggleTheme: () => void;
@@ -11,7 +11,7 @@ interface ThemeContextData {
 }
 const ThemeContext = createContext<ThemeContextData>({} as ThemeContextData);
 
-export const ThemesProvider: React.FC = ({children}) => {
+export const ThemesProvider: React.FC = ({ children }) => {
   const [theme, setTheme] = useState<ThemeType>(Light);
   const [themeName, setThemeName] = useState('light');
 
@@ -22,16 +22,11 @@ export const ThemesProvider: React.FC = ({children}) => {
       if (name !== '' && name !== null) {
         setThemeName(name);
       } else {
-<<<<<<< HEAD
         await AsyncStorage.setTheme('light')
-=======
-        AsyncStorage.setTheme('light');
->>>>>>> 2d8b2cf4d849cd3be7eaf947099db245176ff256
       }
     })();
   }, []);
 
-<<<<<<< HEAD
 
   useEffect(() => {
     if (themeName === 'dark') {
@@ -51,22 +46,11 @@ export const ThemesProvider: React.FC = ({children}) => {
       setThemeName('light')
       setTheme(Light)
       await AsyncStorage.setTheme('light')
-=======
-  function toggleTheme() {
-    if (themeName === 'light') {
-      setThemeName('dark');
-      setTheme(Dark);
-      AsyncStorage.setTheme('dark');
-    } else {
-      setThemeName('light');
-      setTheme(Light);
-      AsyncStorage.setTheme('light');
->>>>>>> 2d8b2cf4d849cd3be7eaf947099db245176ff256
     }
   }
 
   return (
-    <ThemeContext.Provider value={{theme, toggleTheme}}>
+    <ThemeContext.Provider value={{ theme, toggleTheme }}>
       {children}
     </ThemeContext.Provider>
   );
