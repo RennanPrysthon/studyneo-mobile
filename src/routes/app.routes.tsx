@@ -11,10 +11,10 @@ import QuestionList from '~/screens/QuestionList';
 import QuestionDetail from '~/screens/QuestionDetail';
 import MatterDetail from '~/screens/MatterDetail';
 import SubjectDetail from '~/screens/SubjectDetail';
-import Resume from '~/screens/Overviews';
 import AreasList from '~/screens/AreasList';
 import HomeScreen from '~/screens/HomeScreen';
 import ConfigurationScreen from '~/screens/ConfigurationScreen';
+import Resume from '~/screens/Resume';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
