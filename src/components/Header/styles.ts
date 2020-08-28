@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import Ant from 'react-native-vector-icons/AntDesign';
 
 export const Container = styled.View`
   height: 30px;
@@ -6,7 +7,7 @@ export const Container = styled.View`
   align-items: center;
   flex-direction: row;
   text-align: center;
-  background-color: #00B5E2;
+  background-color: ${props => props.theme.primary};
 `;
 
 export const Top = styled.View`
@@ -24,6 +25,11 @@ export const Tap = styled.TouchableOpacity`
 export const Title = styled.Text`
   text-align: center;
   font-size: 16px;
-  color: #ffffff;
+  /* color: ${props => props.theme.title}; */
+  color: ${props => props.theme.title};
   font-weight: bold;
+`;
+
+export const Icon = styled(Ant)`
+color: ${props => props.theme.title};
 `;

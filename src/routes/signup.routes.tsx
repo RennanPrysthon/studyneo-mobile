@@ -2,11 +2,11 @@ import React from 'react';
 
 import { createStackNavigator } from '@react-navigation/stack'
 
-import Header from '../components/Header';
+import Header from '~/components/Header';
 
-import Cadastro from '../pages/Cadastro';
-import Termos from '../pages/Cadastro/Termos';
-import Politica from '../pages/Cadastro/Politica';
+import Cadastro from '~/screens/Cadastro';
+import Termos from '~/screens/Termos';
+import Politica from '~/screens/Politica';
 
 const Stack = createStackNavigator();
 

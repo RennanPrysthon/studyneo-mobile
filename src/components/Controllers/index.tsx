@@ -1,18 +1,13 @@
 import React from 'react';
 
-import { Container } from './styles';
-
-import Icons from 'react-native-vector-icons/AntDesign';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Text } from 'react-native';
 
-interface Props {
-  next: () => void;
-  prev: () => void;
-  page: number;
-}
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import Icons from 'react-native-vector-icons/AntDesign';
 
-const Controllers: React.FC<Props> = ({ page, prev, next }) => {
+import { Container } from './styles';
+
+const Controllers: React.FC<{ next: () => void, prev: () => void; page: number }> = ({ page, prev, next }) => {
   return (
     <Container>
       <TouchableOpacity onPress={prev}>
