@@ -87,8 +87,11 @@ const Cadastro: React.FC = () => {
 
     try {
       await Api.signUp(user);
+      showSuccess('Cadastro concluído', `Usuario ${name} cadastrado com sucesso!`)
       navigation.goBack();
-    } catch (err) { }
+    } catch (err) {
+      console.log(err)
+    }
     setLoading(false);
   };
 

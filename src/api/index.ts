@@ -1,7 +1,7 @@
 import axios from 'axios';
 import Storage from '~/services/storage/auth';
 
-import {showError, Constants} from '~/utils';
+import { showError, Constants } from '~/utils';
 
 const api = axios.create({
   baseURL: Constants.API_PROD,
@@ -31,13 +31,13 @@ api.interceptors.response.use(
   (error) => {
     if (error.response && error.response.status === 401) {
       const erros = error.response.data;
-      erros.forEach(({field, message}: Erro) =>
+      erros.forEach(({ field, message }: Erro) =>
         showError(message, field.charAt(0).toUpperCase() + field.slice(1)),
       );
     }
     //showError(`${error}`);
 
-    throw error;
+    return error;
   },
 );
 

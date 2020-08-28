@@ -182,10 +182,10 @@ const Login = () => {
               {waitin && <ActivityIndicator size={27} color="#ffffff" />}
               {!waitin && <SubmitText>Entrar</SubmitText>}
             </Submit>
-            <GoogleButton activeOpacity={0.5} onPress={handleGoogleLogin}>
+            {/** <GoogleButton activeOpacity={0.5} onPress={handleGoogleLogin}>
               <Google width={27} height={27} />
               <GoogleButtonText>Entrar com Google</GoogleButtonText>
-            </GoogleButton>
+            </GoogleButton> **/}
             <Hint>
               <HintText>Não tem conta?</HintText>
               <Link onPress={handlerCadastrar}>
