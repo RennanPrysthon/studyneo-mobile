@@ -1,4 +1,6 @@
 import styled from 'styled-components/native';
+import LinearGradient from 'react-native-linear-gradient';
+
 
 export const Scroll = styled.ScrollView`
   flex: 1;
@@ -34,7 +36,7 @@ export const List = styled.ScrollView.attrs({
   padding-left: 25px;
 `;
 
-export const ListItem = styled.TouchableOpacity`
+export const ListItem = styled(LinearGradient)`
   width: 100px;
   height: 100px;
   margin-left: 10px;
