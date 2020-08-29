@@ -1,23 +1,17 @@
 import React, { useEffect, useState, useCallback } from 'react';
 
-import { RefreshControl, TouchableOpacity } from 'react-native';
+import { RefreshControl } from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
 
 import { getAreas } from '~/api/area';
 
 import Loading from '~/components/Loading';
-
-import { randomize } from '~/utils';
+import Area from '~/components/Area';
 
 import {
   Scroll,
-  Container,
-  Item,
-  AreaTitle,
-  List,
-  ListItem,
-  MatterText,
+  Container
 } from './styles';
 
 interface Color { c1: string, c2: string }
@@ -37,14 +31,14 @@ interface Matter {
   title: string;
 }
 
-interface Area {
+interface Areas {
   id: number;
   title: string;
   matters: Matter[];
 }
 
 const AreasList: React.FC = () => {
-  const [feed, setFeed] = useState<Area[]>([] as Area[]);
+  const [feed, setFeed] = useState<Areas[]>([] as Areas[]);
   const [loading, setLoading] = useState(true);
   const navigation = useNavigation();
 
@@ -67,17 +61,9 @@ const AreasList: React.FC = () => {
     fetchAreasFromApi();
   }, [fetchAreasFromApi]);
 
-  const embaralha = useCallback((colorsArray) => randomize(colorsArray), []);
 
   if (loading) {
     return <Loading />;
-  }
-
-  function getColors(cores: Color[], index: number) {
-    if (index >= cores.length) {
-      return cores[index - cores.length];
-    }
-    return cores[index];
   }
 
   return (
@@ -86,38 +72,20 @@ const AreasList: React.FC = () => {
         <RefreshControl refreshing={loading} onRefresh={refresh} />
       }>
       <Container>
-        {feed?.map((item) => {
-          const cores = embaralha(colors);
-          return (
-            <Item key={item.id}>
-              <AreaTitle>{item?.title}</AreaTitle>
-              <List>
-                {item.matters.map((matter, index) => {
-                  const { c1, c2 } = getColors(cores, index);
-                  return (
-                    <TouchableOpacity
-                      onPress={() =>
-                        navigation.navigate('matterDetail', {
-                          id: matter.id,
-                          title: matter.title,
-                        })
-                      }
-
-                    >
-                      <ListItem
-                        start={{ x: 1, y: 0 }} end={{ x: 0, y: 1 }}
-                        colors={[c1, c2]}
-                        key={matter.id}
-                      >
-                        <MatterText>{matter.title}</MatterText>
-                      </ListItem>
-                    </TouchableOpacity>
-                  )
-                })}
-              </List>
-            </Item>
-          );
-        })}
+        {feed?.map((item) => (
+          <Area
+            key={item.id}
+            onPress={(id, title) =>
+              navigation.navigate('matterDetail', {
+                id: id,
+                title: title,
+              })
+            }
+            item={item}
+            cores={colors}
+          />
+        )
+        )}
       </Container>
     </Scroll>
   );
