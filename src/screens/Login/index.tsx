@@ -98,6 +98,7 @@ const Login = () => {
       console.log(e);
       setWaiting(false);
     }
+    setWaiting(false);
   };
   async function handleGoogleLogin() {
     try {
