@@ -7,7 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 import { getAreas } from '~/api/area';
 
 import Loading from '~/components/Loading';
-import Area from '~/components/Area';
+import SectionList from '~/components/SectionList';
 
 import {
   Scroll,
@@ -73,7 +73,7 @@ const AreasList: React.FC = () => {
       }>
       <Container>
         {feed?.map((item) => (
-          <Area
+          <SectionList
             key={item.id}
             onPress={(id, title) =>
               navigation.navigate('matterDetail', {
