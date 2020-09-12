@@ -19,15 +19,15 @@ import {
   Button,
   ButtonTitle,
   Icon,
-  TitleArea
+  TitleArea,
 } from './styles';
 
 type ParamsList = {
   ID: {
     id: number;
     title: string;
-  }
-}
+  };
+};
 
 interface Subject {
   id: number;
@@ -39,7 +39,7 @@ interface Subject {
 
 const SubjectDetail: React.FC = () => {
   const [loading, setLoading] = useState(true);
-  const [subject, setSubject] = useState<Subject>({} as Subject)
+  const [subject, setSubject] = useState<Subject>({} as Subject);
   const { params } = useRoute<RouteProp<ParamsList, 'ID'>>();
   const { id } = params;
 
@@ -48,14 +48,14 @@ const SubjectDetail: React.FC = () => {
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await api.get<Subject>(`subjects/view/${id}`)
+        const { data } = await api.get<Subject>(`subjects/view/${id}`);
         setSubject(data);
-        setLoading(false)
-      } catch (error) { }
+        setLoading(false);
+      } catch (error) {}
     })();
-  }, [id])
+  }, [id]);
 
-  if (loading) return <Loading />
+  if (loading) return <Loading />;
 
   const { title, overview_counts, questions_counts } = subject;
 
@@ -65,27 +65,21 @@ const SubjectDetail: React.FC = () => {
         <TitleArea>
           <Title
             style={{
-              textAlign: 'left'
+              textAlign: 'left',
             }}
-          >{title}</Title>
+          >
+            {title}
+          </Title>
         </TitleArea>
         <Details>
           <KeyList>
-            <Key>
-              {questions_counts}
-            </Key>
-            <Key>
-              {overview_counts}
-            </Key>
+            <Key>{questions_counts}</Key>
+            <Key>{overview_counts}</Key>
           </KeyList>
           <Divider />
           <KeyList>
-            <Value>
-              Questões
-            </Value>
-            <Value>
-              Resumos
-            </Value>
+            <Value>Questões</Value>
+            <Value>Resumos</Value>
           </KeyList>
         </Details>
       </Header>
@@ -93,31 +87,26 @@ const SubjectDetail: React.FC = () => {
         <Button
           onPress={() => {
             if (questions_counts > 0) {
-              navigation.navigate('questionList', { id })
+              navigation.navigate('questionList', { id });
             }
           }}
         >
           <Icon name="book" />
-          <ButtonTitle>
-            Questões
-            </ButtonTitle>
+          <ButtonTitle>Questões</ButtonTitle>
         </Button>
         <Button
           onPress={() => {
             if (overview_counts > 0) {
-              navigation.navigate('overviewDetail', { id })
+              navigation.navigate('overviewDetail', { id });
             }
           }}
         >
           <Icon name="filetext1" />
-          <ButtonTitle>
-            Resumos
-            </ButtonTitle>
+          <ButtonTitle>Resumos</ButtonTitle>
         </Button>
       </List>
-
     </Container>
   );
-}
+};
 
 export default SubjectDetail;

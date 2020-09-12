@@ -9,7 +9,6 @@ import { getAreas } from '~/api/area';
 import Loading from '~/components/Loading';
 
 import { randomize } from '~/utils';
-
 import {
   Scroll,
   Container,
@@ -65,7 +64,7 @@ const AreasList: React.FC = () => {
     fetchAreasFromApi();
   }, [fetchAreasFromApi]);
 
-  const embaralha = useCallback((colorsArray) => randomize(colorsArray), []);
+  const embaralha = useCallback(colorsArray => randomize(colorsArray), []);
 
   if (loading) {
     return <Loading />;
@@ -82,9 +81,10 @@ const AreasList: React.FC = () => {
     <Scroll
       refreshControl={
         <RefreshControl refreshing={loading} onRefresh={refresh} />
-      }>
+      }
+    >
       <Container>
-        {feed?.map((item) => {
+        {feed?.map(item => {
           const cores = embaralha(colors);
           return (
             <Item key={item.id}>
@@ -101,7 +101,8 @@ const AreasList: React.FC = () => {
                     key={matter.id}
                     style={{
                       backgroundColor: getColors(cores, index),
-                    }}>
+                    }}
+                  >
                     <MatterText>{matter.title}</MatterText>
                   </ListItem>
                 ))}

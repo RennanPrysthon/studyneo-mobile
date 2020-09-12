@@ -6,6 +6,7 @@ export const Container = styled.View`
   background-color: ${props => props.theme.background};
   align-content: center;
   justify-content: center;
+  width: 100%;
 `;
 
 export const Header = styled.View`
@@ -30,9 +31,7 @@ export const Details = styled.View`
   justify-content: space-between;
 `;
 
-export const KeyList = styled.View`
-
-`;
+export const KeyList = styled.View``;
 
 export const Key = styled.Text`
   font-size: 15px;
@@ -78,11 +77,9 @@ export const ButtonTitle = styled.Text`
   color: ${props => props.theme.texts};
 `;
 
-export const Icon = styled(AntDesign).attrs({
-
-})`
+export const Icon = styled(AntDesign).attrs({})`
   font-size: 35px;
-  color: ${props => props.theme.texts}
+  color: ${props => props.theme.texts};
 `;
 
 export const TitleArea = styled.View`
