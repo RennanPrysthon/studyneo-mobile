@@ -46,7 +46,7 @@ const QuestionsDatabaseStack = () => (
       name="questionList"
       component={QuestionList}
       options={{
-        header: () => <BackHeader />,
+        headerShown: false,
       }}
     />
     <Stack.Screen

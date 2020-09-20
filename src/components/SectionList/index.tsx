@@ -49,6 +49,7 @@ const SectionList: React.FC<Props> = ({ item, cores, onPress }) => {
       <MatterList>
         {item.matters.map((item, index) => (
           <Area
+            key={index}
             color={getColors(colors, index)}
             item={item}
             onPress={onPress}

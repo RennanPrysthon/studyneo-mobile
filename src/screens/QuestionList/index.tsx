@@ -7,6 +7,7 @@ import api from '~/api';
 import QuestionDetail, { Question } from '../QuestionDetail';
 
 import Controllers from '~/components/Controllers';
+import BackButton from '~/components/BackButton';
 
 type ParamsList = {
   ID: {
@@ -42,7 +43,8 @@ const QuestionList: React.FC = () => {
 
   return (
     <>
-      <Controllers page={page} prev={() => setPage(p => p === 1 ? p : p - 1)} next={() => setPage(p => p === lastPage ? p : p + 1)} />
+      <BackButton />
+      <Controllers page={page} last={lastPage} prev={() => setPage(p => p === 1 ? p : p - 1)} next={() => setPage(p => p === lastPage ? p : p + 1)} />
       {question && <QuestionDetail id={question.id} refreshing={loading} />}
     </>
   )

@@ -1,7 +1,7 @@
 import api from '.';
 
 const login = async (email: string, password: string) => {
-  const response = await api.post('auth', {email, password});
+  const response = await api.post('auth', { email, password });
   return response.data;
 };
 interface SignUpData {
@@ -15,8 +15,8 @@ const signUp = async (user: SignUpData) => {
 };
 
 const googleSignIn = async (idToken: string) => {
-  const response = await api.post('auth/google', {idToken});
+  const response = await api.post('auth/google', { idToken });
   return response.data;
 };
 
-export default {login, signUp, googleSignIn};
+export default { login, signUp, googleSignIn };
