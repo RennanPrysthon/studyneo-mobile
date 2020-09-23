@@ -37,7 +37,7 @@ api.interceptors.response.use(
     }
     //showError(`${error}`);
 
-    return error;
+    throw error;
   },
 );
 
